@@ -74,22 +74,13 @@ public class Main {
             int position = num;
             int height = 1;
             while (height <= maxHeight) {
-                List<Step> sameHeightSteps = findStepByHeight(height, steps);
-                if (sameHeightSteps.isEmpty()) {
-                    height++;
-                    continue;
-                }
-
-                Step movableStep = findStepByPosition(position, sameHeightSteps.toArray(new Step[sameHeightSteps.size()]));
-
-                // 이동할 수 있는 Step이 없으면 높이 +1 하고 다음으로
+                Step movableStep = findMovableStep(position, height, steps);
                 if (movableStep == null) {
                     height++;
                     continue;
                 }
 
-                // 이동할 수 있으면
-                position = movableStep.move(position); // Step 타고 이동
+                position = movableStep.move(position);
                 height++;
             }
 
@@ -98,17 +89,9 @@ public class Main {
         return result;
     }
 
-    // 같은 높이의 Steps 모두 조회
-    private static List<Step> findStepByHeight(int height, Step[] steps) {
-        return Arrays.stream(steps)
-                .filter(step -> step.height == height)
-                .collect(Collectors.toList());
-    }
-
-    // 주어진 위치에서 이동할 수 있는 하나의 Step 반환
-    private static Step findStepByPosition(int position, Step[] steps) {
+    private static Step findMovableStep(int position, int height, Step[] steps) {
         for (Step step : steps) {
-            if (step.leftLadderNum == position || step.leftLadderNum == position - 1) {
+            if (step.movable(position, height)) {
                 return step;
             }
         }
@@ -125,8 +108,15 @@ class Step {
         this.height = height;
     }
 
-    public int height() {
-        return height;
+    public boolean movable(int position, int height) {
+        if (this.height != height) {
+            return false;
+        }
+
+        if (position == leftLadderNum || position == leftLadderNum + 1) {
+            return true;
+        }
+        return false;
     }
 
     public int move(int position) {
@@ -138,5 +128,9 @@ class Step {
             return position + 1;
         }
         return position - 1;
+    }
+
+    public int height() {
+        return height;
     }
 }
