@@ -8,10 +8,13 @@
 
 |총 문제수|획득 경험치|연속 학습|
 |---:|---:|---|
-1|0xp|0일째❄️|
+4|0xp|0일째❄️|
 
 |교재|이름|난이도|상태|최근 제출 코드|
 |---|---|:---:|:---:|---|
+|[Novice Mid / 재귀함수 / 값을 반환하는 재귀함수](https://www.codetree.ai/missions?missionId=5)|[[연습]Factorial](https://www.codetree.ai/missions/5/problems/factorial)|![쉬움][easy]|![Passed][passed]|[링크](https://github.com/kdkdhoho/codetree-TILs/blob/main/231113/Factorial/factorial.java)|
+|[Intermediate Low / Backtracking / K개 중 하나를 N번 선택하기(Simple)](https://www.codetree.ai/missions?missionId=2)|[[연습]아름다운 수](https://www.codetree.ai/missions/2/problems/beautiful-number)|![쉬움][easy]|![Passed][passed]|[링크](https://github.com/kdkdhoho/codetree-TILs/blob/main/231113/%EC%95%84%EB%A6%84%EB%8B%A4%EC%9A%B4%20%EC%88%98/beautiful-number.java)|
+|[Intermediate Low / Backtracking / K개 중 하나를 N번 선택하기(Simple)](https://www.codetree.ai/missions?missionId=2)|[[연습]사다리 타기](https://www.codetree.ai/missions/2/problems/ladder-game)|![어려움][hard]|![Failed][failed]|[링크](https://github.com/kdkdhoho/codetree-TILs/blob/main/231113/%EC%82%AC%EB%8B%A4%EB%A6%AC%20%ED%83%80%EA%B8%B0/ladder-game.java)|
 |[Intermediate Low / Backtracking / K개 중 하나를 N번 선택하기(Conditional)](https://www.codetree.ai/missions?missionId=2)|[[개념]특정 조건에 맞게 k개 중에 1개를 n번 뽑기](https://www.codetree.ai/missions/2/problems/n-permutations-of-k-with-repetition-under-constraint)|![쉬움][easy]|![Passed][passed]|[링크](https://github.com/kdkdhoho/codetree-TILs/blob/main/231113/%ED%8A%B9%EC%A0%95%20%EC%A1%B0%EA%B1%B4%EC%97%90%20%EB%A7%9E%EA%B2%8C%20k%EA%B0%9C%20%EC%A4%91%EC%97%90%201%EA%B0%9C%EB%A5%BC%20n%EB%B2%88%20%EB%BD%91%EA%B8%B0/n-permutations-of-k-with-repetition-under-constraint.java)|
 
 
