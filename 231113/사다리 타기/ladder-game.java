@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -85,17 +84,16 @@ public class Main {
                     continue;
                 }
 
-                Optional<Step> optionalStep = findStepByPosition(position, sameHeightSteps.toArray(new Step[sameHeightSteps.size()]));
+                Step movableStep = findStepByPosition(position, sameHeightSteps.toArray(new Step[sameHeightSteps.size()]));
 
                 // 이동할 수 있는 Step이 없으면 높이 +1 하고 다음으로
-                if (optionalStep.isEmpty()) {
+                if (movableStep == null) {
                     height++;
                     continue;
                 }
 
                 // 이동할 수 있으면
-                Step step = optionalStep.get();
-                position = step.move(position); // Step 타고 이동
+                position = movableStep.move(position); // Step 타고 이동
                 height++;
             }
 
@@ -112,10 +110,13 @@ public class Main {
     }
 
     // 주어진 위치에서 이동할 수 있는 하나의 Step 반환
-    private static Optional<Step> findStepByPosition(int position, Step[] steps) {
-        return Arrays.stream(steps)
-                .filter(step -> step.leftLadderNum == position || step.leftLadderNum == position - 1)
-                .findFirst();
+    private static Step findStepByPosition(int position, Step[] steps) {
+        for (Step step : steps) {
+            if (step.leftLadderNum == position || step.leftLadderNum == position - 1) {
+                return step;
+            }
+        }
+        return null;
     }
 }
 
