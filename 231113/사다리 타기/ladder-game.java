@@ -8,7 +8,6 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static int n, m, answer = Integer.MAX_VALUE;
     private static int maxHeight;
-    private static int[] init;
 
     public static void main(String[] args) {
         n = sc.nextInt();
@@ -26,10 +25,7 @@ public class Main {
                 .mapToInt(Step::height)
                 .max().getAsInt();
 
-        init = play(steps);
-
-        int[] emptyResult = play(new Step[0]);
-        if (isSame(init, emptyResult)) {
+        if (isSame(play(steps), play(new Step[0]))) {
             answer = 0;
         }
 
@@ -42,7 +38,7 @@ public class Main {
     private static void recursive(int size, List<Step> current, Step[] origin) {
         if (current.size() == size) {
             int[] result = play(current);
-            if (isSame(init, result)) {
+            if (isSame(play(origin), result)) {
                 answer = Math.min(answer, current.size());
             }
             return;
