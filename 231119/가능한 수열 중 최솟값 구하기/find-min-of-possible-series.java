@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -24,9 +23,6 @@ public class Main {
         n = sc.nextInt();
 
         recursive(new ArrayList<>(), n);
-
-        answer.sort(Comparator.naturalOrder());
-        System.out.println(answer.get(0));
     }
 
     private static void recursive(List<Integer> numbers, int n) {
@@ -35,7 +31,8 @@ public class Main {
                 String result = numbers.stream()
                         .map(String::valueOf)
                         .collect(Collectors.joining(""));
-                answer.add(result);
+                System.out.println(result);
+                System.exit(0);
             }
             return;
         }
@@ -48,12 +45,12 @@ public class Main {
     }
 
     private static boolean isBeautiful(List<Integer> numbers) {
-        for (int l = 1; l <= n / 2; l++) {
-            for (int start = 0; start <= n - (l * 2); start++) {
+        for (int l = 1; l <= n / 2; l++) { // O(N/2)
+            for (int start = 0; start <= n - (l * 2); start++) { // O(N/2)
                 int cnt = 0;
 
                 int end = start + l - 1;
-                for (int i = start; i <= end; i++) {
+                for (int i = start; i <= end; i++) { // O(N/2)
                     int idx = i + l;
 
                     if (numbers.get(i).equals(numbers.get(idx))) {
