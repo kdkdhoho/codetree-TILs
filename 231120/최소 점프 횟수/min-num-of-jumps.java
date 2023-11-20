@@ -27,7 +27,7 @@ public class Main {
     }
 
     private static void recursive(int pos, int cnt) {
-        if ((pos != n - 1 && arr[pos] == 0) || pos >= n) {
+        if (pos >= n || (pos != n - 1 && arr[pos] == 0)) {
             return;
         }
 
