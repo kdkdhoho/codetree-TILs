@@ -27,11 +27,7 @@ public class Main {
     }
 
     private static void recursive(int pos, int cnt) {
-        if (pos >= n || (pos != n - 1 && arr[pos] == 0)) {
-            return;
-        }
-
-        if (pos == n - 1) {
+        if (pos >= n - 1) {
             answer = Math.min(answer, cnt);
             return;
         }
