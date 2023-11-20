@@ -12,6 +12,10 @@ public class Main {
         for (int i = 0; i < n; i++) {
             arr[i] = sc.nextInt();
         }
+        if (arr[0] == 0) {
+            System.out.print(-1);
+            System.exit(0);
+        }
 
         recursive(0, 0);
 
@@ -23,12 +27,12 @@ public class Main {
     }
 
     private static void recursive(int pos, int cnt) {
-        if (arr[pos] == 0 || pos >= n) {
+        if (pos == n - 1) {
+            answer = Math.min(answer, cnt);
             return;
         }
 
-        if (pos == n - 1) {
-            answer = Math.min(answer, cnt);
+        if (arr[pos] == 0 || pos >= n) {
             return;
         }
 
