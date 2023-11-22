@@ -6,15 +6,16 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
 
     private static int n, m;
+    private static final List<Integer> nums = new ArrayList<>();
 
     public static void main(String[] args) {
         n = sc.nextInt();
         m = sc.nextInt();
 
-        recursive(new ArrayList<>(), 1);
+        recursive(1);
     }
 
-    private static void recursive(List<Integer> nums, int currNum) {
+    private static void recursive(int currNum) {
         if (nums.size() == m) {
             print(nums);
             return;
@@ -22,7 +23,7 @@ public class Main {
 
         for (int num = currNum; num <= n; num++) {
             nums.add(num);
-            recursive(nums, num + 1);
+            recursive(num + 1);
             nums.remove(nums.size() - 1);
         }
     }
