@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
@@ -24,7 +23,10 @@ public class Main {
 
     private static void recursive(List<Integer> nums, int idx) {
         if (nums.size() == m) {
-            int result = xor(nums);
+            int result = nums.get(0);
+            for (int i = 1; i < nums.size(); i++) {
+                result ^= nums.get(i);
+            }
             answer = Math.max(answer, result);
         }
 
@@ -33,76 +35,5 @@ public class Main {
             recursive(nums, idx + 1);
             nums.remove(nums.size() - 1);
         }
-    }
-
-    private static int xor(List<Integer> nums) {
-        List<String> binaries = toBinaries(nums);
-        int maxLength = maxLength(binaries);
-        List<String> formatted = format(binaries, maxLength);
-
-        List<Integer> resultBinary = applyXor(formatted, maxLength);
-        return toDecimal(resultBinary);
-    }
-
-    private static List<String> toBinaries(List<Integer> nums) {
-        return nums.stream()
-                .map(Integer::toBinaryString)
-                .collect(Collectors.toList());
-    }
-
-    private static int maxLength(List<String> binaries) {
-        return binaries.stream()
-                .mapToInt(String::length)
-                .max().getAsInt();
-    }
-
-    private static List<String> format(List<String> binaries, int maxLength) {
-        List<String> result = new ArrayList<>();
-        for (String binary : binaries) {
-            if (binary.length() < maxLength) {
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < maxLength - binary.length(); i++) {
-                    sb.append("0");
-                }
-                sb.append(binary);
-                result.add(sb.toString());
-                continue;
-            }
-
-            result.add(binary);
-        }
-        return result;
-    }
-
-    private static List<Integer> applyXor(List<String> formatted, int maxLength) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < maxLength; i++) {
-            int cnt = 0;
-
-            for (String binary : formatted) {
-                if (binary.charAt(i) - '0' == 1) {
-                    cnt++;
-                }
-            }
-
-            if (cnt % 2 != 0) {
-                result.add(1);
-            } else {
-                result.add(0);
-            }
-        }
-
-        return result;
-    }
-
-    private static int toDecimal(List<Integer> resultBinary) {
-        int result = 0;
-
-        int power = 0;
-        for (int i = resultBinary.size() - 1; i >= 0; i--) {
-            result += (int) Math.pow(2, power) * resultBinary.get(i);
-            power++;
-        }
-        return result;
     }
 }
