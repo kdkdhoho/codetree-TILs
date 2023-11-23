@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -7,33 +5,40 @@ public class Main {
 
     private static int n, m, answer = Integer.MIN_VALUE;
     private static int[] numbers;
+    private static boolean[] used;
 
     public static void main(String[] args) {
         n = sc.nextInt();
         m = sc.nextInt();
         numbers = new int[n];
+        used = new boolean[n];
         for (int i = 0; i < n; i++) {
             numbers[i] = sc.nextInt();
         }
 
-        recursive(new ArrayList<>(), 0);
+        recursive(0, 0);
 
         System.out.println(answer);
     }
 
-    private static void recursive(List<Integer> nums, int idx) {
-        if (nums.size() == m) {
-            int result = nums.get(0);
-            for (int i = 1; i < nums.size(); i++) {
-                result ^= nums.get(i);
+    private static void recursive(int idx, int cnt) {
+        if (cnt == m) {
+            int result = 0;
+            for (int i = 0; i < used.length; i++) {
+                if (used[i]) {
+                    result ^= numbers[i];
+                }
             }
             answer = Math.max(answer, result);
         }
 
-        for (int i = idx; i < n; i++) {
-            nums.add(numbers[i]);
-            recursive(nums, idx + 1);
-            nums.remove(nums.size() - 1);
+        if (idx == n) {
+            return;
         }
+
+        used[idx] = true;
+        recursive(idx + 1, cnt + 1);
+        used[idx] = false;
+        recursive(idx + 1, cnt);
     }
 }
