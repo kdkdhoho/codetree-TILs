@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,8 @@ public class Main {
                 }
             }
         }
+
+        numbers.sort(Comparator.naturalOrder());
 
         if (numbers.size() < 3) {
             System.out.print(-1);
