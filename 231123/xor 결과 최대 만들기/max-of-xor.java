@@ -44,17 +44,6 @@ public class Main {
         return toDecimal(resultBinary);
     }
 
-    private static int toDecimal(List<Integer> resultBinary) {
-        int result = 0;
-
-        int power = 0;
-        for (int i = resultBinary.size() - 1; i >= 0; i--) {
-            result += (int) Math.pow(2, power) * resultBinary.get(i);
-            power++;
-        }
-        return result;
-    }
-
     private static List<String> toBinaries(List<Integer> nums) {
         return nums.stream()
                 .map(Integer::toBinaryString)
@@ -88,21 +77,32 @@ public class Main {
     private static List<Integer> applyXor(List<String> formatted, int maxLength) {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < maxLength; i++) {
-            boolean insert = false;
+            int cnt = 0;
 
             for (String binary : formatted) {
                 if (binary.charAt(i) - '0' == 1) {
-                    insert = true;
-                    result.add(1);
-                    break;
+                    cnt++;
                 }
             }
 
-            if (!insert) {
+            if (cnt % 2 != 0) {
+                result.add(1);
+            } else {
                 result.add(0);
             }
         }
 
+        return result;
+    }
+
+    private static int toDecimal(List<Integer> resultBinary) {
+        int result = 0;
+
+        int power = 0;
+        for (int i = resultBinary.size() - 1; i >= 0; i--) {
+            result += (int) Math.pow(2, power) * resultBinary.get(i);
+            power++;
+        }
         return result;
     }
 }
