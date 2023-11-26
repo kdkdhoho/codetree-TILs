@@ -2,10 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * 점 n개가 있다. 이 중 m개를 적절히 선택하고, 선택한 점들 중 거리가 가장 먼 두 점 사이의 거리를 k라고 했을 때,
- * 최소가 되는 k의 제곱을 출력하시오
- */
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static int n, m;
@@ -21,7 +17,7 @@ public class Main {
         }
 
         recursive(new ArrayList<>(), 0, points);
-        
+
         System.out.println((int) Math.pow(answer, 2));
     }
 
@@ -29,12 +25,8 @@ public class Main {
         if (pickedPoints.size() == m) {
             double maximumTwoPointsDistance = Double.MIN_VALUE;
 
-            for (int i = 0; i < pickedPoints.size(); i++) {
-                for (int j = 0; j < pickedPoints.size(); j++) {
-                    if (i == j) {
-                        continue;
-                    }
-
+            for (int i = 0; i < pickedPoints.size() - 1; i++) {
+                for (int j = i + 1; j < pickedPoints.size(); j++) {
                     Point point1 = pickedPoints.get(i);
                     Point point2 = pickedPoints.get(j);
                     double distance = point1.distance(point2);
@@ -55,6 +47,9 @@ public class Main {
         pickedPoints.add(points[pickIndex]);
         recursive(pickedPoints, pickIndex + 1, points);
         pickedPoints.remove(pickedPoints.size() - 1);
+
+        // 선택하지 않았을 때
+        recursive(pickedPoints, pickIndex + 1, points);
     }
 }
 
@@ -69,13 +64,5 @@ class Point {
 
     public double distance(Point other) {
         return Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2));
-    }
-
-    public int x() {
-        return x;
-    }
-
-    public int y() {
-        return y;
     }
 }
