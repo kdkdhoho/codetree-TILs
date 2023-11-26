@@ -1,5 +1,4 @@
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,8 +19,10 @@ public class Main {
 
         recursive(new ArrayList<>(), points, 0);
 
-        BigDecimal result = answer.pow(2, MathContext.DECIMAL32);
-        System.out.println(result.toBigInteger());
+        BigDecimal result = answer.pow(2);
+        double d = result.doubleValue();
+        double a = Math.round(d * 10.0) / 10.0;
+        System.out.println((int) a);
     }
 
     private static void recursive(List<Point> pickedPoints, Point[] points, int pickIndex) {
