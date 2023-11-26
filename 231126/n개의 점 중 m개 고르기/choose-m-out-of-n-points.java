@@ -10,7 +10,7 @@ public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static int n, m;
     private static Point[] points;
-    private static double minDistance = Double.MAX_VALUE;
+    private static double answer = Double.MAX_VALUE;
 
     public static void main(String[] args) {
         n = sc.nextInt();
@@ -20,21 +20,30 @@ public class Main {
             points[i] = new Point(sc.nextInt(), sc.nextInt());
         }
 
-        recursive(0, 0, new ArrayList<>(), points);
-
-        System.out.println((int) Math.pow(minDistance, 2));
+        recursive(new ArrayList<>(), 0, points);
+        
+        System.out.println((int) Math.pow(answer, 2));
     }
 
-    /**
-     * m개의 점을 골랐을 때, 가장 거리가 먼 두 점을 가진다.
-     * 이 두 점의 거리의 최대를 answer에 갱신한다.
-     * <p>
-     * pickedCount은 0부터 시작한다.
-     */
-    private static void recursive(int pickedCount, int pickIndex, List<Point> pickedPoints, Point[] points) {
-        if (pickedCount == m) {
-            double distance = pickedPoints.get(0).distance(pickedPoints.get(1));
-            minDistance = Math.min(minDistance, distance);
+    private static void recursive(List<Point> pickedPoints, int pickIndex, Point[] points) {
+        if (pickedPoints.size() == m) {
+            double maximumTwoPointsDistance = Double.MIN_VALUE;
+
+            for (int i = 0; i < pickedPoints.size(); i++) {
+                for (int j = 0; j < pickedPoints.size(); j++) {
+                    if (i == j) {
+                        continue;
+                    }
+
+                    Point point1 = pickedPoints.get(i);
+                    Point point2 = pickedPoints.get(j);
+                    double distance = point1.distance(point2);
+
+                    maximumTwoPointsDistance = Math.max(maximumTwoPointsDistance, distance);
+                }
+            }
+
+            answer = Math.min(answer, maximumTwoPointsDistance);
             return;
         }
 
@@ -42,34 +51,10 @@ public class Main {
             return;
         }
 
-        // 선택하지 않았을 때
-        recursive(pickedCount, pickIndex + 1, pickedPoints, points);
-
         // 선택했을 때
-        Point point = points[pickIndex];
-        if (pickedPoints.size() < 2) { // 아직 2개를 못 구했을 때
-            pickedPoints.add(point); // 넣고 재귀돌림
-            recursive(pickedCount + 1, pickIndex + 1, pickedPoints, points);
-        } else {
-            // 2개 구했을 때 거리가 가장 먼 두 점을 구한다
-            double distance1 = point.distance(pickedPoints.get(0));
-            double distance2 = point.distance(pickedPoints.get(1));
-
-            if (distance1 > distance2) { // point와 point[0]의 거리가 더 멀면
-                // 리스트 갱신하고, 다음 재귀 진행
-                pickedPoints.remove(1);
-                pickedPoints.add(point);
-                recursive(pickedCount + 1, pickIndex + 1, pickedPoints, points);
-            } else if (distance2 > distance1) { // point와 point[1]의 거리가 더 멀면
-                // 리스트 수정하고 다음 재귀 진행
-                pickedPoints.remove(0);
-                pickedPoints.add(point);
-                recursive(pickedCount + 1, pickIndex + 1, pickedPoints, points);
-            } else { // point[0]과 point[1]의 거리가 더 멀면
-                // 현재 상태 그대로 다음 재귀 진행
-                recursive(pickedCount + 1, pickIndex + 1, pickedPoints, points);
-            }
-        }
+        pickedPoints.add(points[pickIndex]);
+        recursive(pickedPoints, pickIndex + 1, points);
+        pickedPoints.remove(pickedPoints.size() - 1);
     }
 }
 
