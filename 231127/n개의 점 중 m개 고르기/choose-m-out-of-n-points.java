@@ -25,18 +25,16 @@ public class Main {
 
     private static void recursive(List<Point> pickedPoints, int pickIndex) {
         if (pickedPoints.size() == m) {
-            BigDecimal maximumTwoPointsDistance = new BigDecimal(Double.MIN_VALUE);
+            double maximumTwoPointsDistance = Double.MIN_VALUE;
             for (int i = 0; i < pickedPoints.size() - 1; i++) {
                 for (int j = i + 1; j < pickedPoints.size(); j++) {
-                    BigDecimal distance = pickedPoints.get(i).distance(pickedPoints.get(j));
-                    if (distance.compareTo(maximumTwoPointsDistance) > 0) {
-                        maximumTwoPointsDistance = distance;
-                    }
+                    double distance = pickedPoints.get(i).distance(pickedPoints.get(j));
+                    maximumTwoPointsDistance = Math.max(maximumTwoPointsDistance, distance);
                 }
             }
 
-            if (maximumTwoPointsDistance.compareTo(answer) < 0) {
-                answer = maximumTwoPointsDistance;
+            if (maximumTwoPointsDistance < answer.doubleValue()) {
+                answer = new BigDecimal(maximumTwoPointsDistance);
             }
             return;
         }
@@ -45,12 +43,10 @@ public class Main {
             return;
         }
 
-        // 선택했을 때
         pickedPoints.add(points[pickIndex]);
         recursive(pickedPoints, pickIndex + 1);
         pickedPoints.remove(pickedPoints.size() - 1);
 
-        // 선택 X
         recursive(pickedPoints, pickIndex + 1);
     }
 }
@@ -64,8 +60,7 @@ class Point {
         this.y = y;
     }
 
-    public BigDecimal distance(Point other) {
-        double distance = Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2));
-        return new BigDecimal(distance);
+    public double distance(Point other) {
+        return Math.sqrt(Math.pow(x - other.x, 2) + Math.pow(y - other.y, 2));
     }
 }
