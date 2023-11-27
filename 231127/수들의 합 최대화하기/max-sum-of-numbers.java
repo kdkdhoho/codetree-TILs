@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -14,27 +16,27 @@ public class Main {
             }
         } // O(N^2)
 
-        recursive(0, 0, new boolean[n], new boolean[n]);
+        recursive(new ArrayList<>(), new boolean[n]);
         System.out.print(answer);
     }
 
-    private static void recursive(int pickCount, int sum, boolean[] rowUsed, boolean[] colUsed) {
-        if (pickCount == n) {
+    private static void recursive(List<Integer> pickedColumnIndexes, boolean[] colUsed) {
+        if (pickedColumnIndexes.size() == n) {
+            int sum = 0;
+            for (int i = 0; i < n; i++) {
+                sum += arr[i][pickedColumnIndexes.get(i)];
+            }
             answer = Math.max(answer, sum);
             return;
         }
 
-        for (int row = 0; row < n; row++) {
-            if (!rowUsed[row]) {
-                rowUsed[row] = true;
-                for (int col = 0; col < n; col++) {
-                    if (!colUsed[col]) {
-                        colUsed[col] = true;
-                        recursive(pickCount + 1, sum + arr[row][col], rowUsed, colUsed);
-                        colUsed[col] = false;
-                    }
-                }
-                rowUsed[row] = false;
+        for (int col = 0; col < n; col++) {
+            if (!colUsed[col]) {
+                colUsed[col] = true;
+                pickedColumnIndexes.add(col);
+                recursive(pickedColumnIndexes, colUsed);
+                colUsed[col] = false;
+                pickedColumnIndexes.remove(pickedColumnIndexes.size() - 1);
             }
         }
     }
