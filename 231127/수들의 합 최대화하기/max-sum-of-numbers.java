@@ -31,10 +31,10 @@ public class Main {
                     if (!colUsed[col]) {
                         colUsed[col] = true;
                         recursive(pickCount + 1, sum + arr[row][col], rowUsed, colUsed);
-                        rowUsed[row] = false;
                         colUsed[col] = false;
                     }
                 }
+                rowUsed[row] = false;
             }
         }
     }
