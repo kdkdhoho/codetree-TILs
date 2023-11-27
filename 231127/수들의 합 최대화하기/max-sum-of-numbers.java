@@ -26,9 +26,9 @@ public class Main {
 
         for (int row = 0; row < n; row++) {
             if (!rowUsed[row]) {
+                rowUsed[row] = true;
                 for (int col = 0; col < n; col++) {
                     if (!colUsed[col]) {
-                        rowUsed[row] = true;
                         colUsed[col] = true;
                         recursive(pickCount + 1, sum + arr[row][col], rowUsed, colUsed);
                         rowUsed[row] = false;
