@@ -26,6 +26,10 @@ public class Main {
 
     private static void recursive(int start, boolean[] visited, int sum, int cnt) {
         if (cnt == n - 1) {
+            if (values[start][0] == 0) {
+                return;
+            }
+            
             sum += values[start][0];
             answer = Math.min(answer, sum);
             return;
