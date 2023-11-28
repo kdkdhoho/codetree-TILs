@@ -31,9 +31,8 @@ public class Main {
             return;
         }
 
-        // O((N-1)!)
         for (int target = 0; target < n; target++) {
-            if (!visited[target]) {
+            if (!visited[target] && values[start][target] != 0) {
                 visited[target] = true;
                 recursive(target, visited, sum + values[start][target], cnt + 1);
                 visited[target] = false;
