@@ -27,7 +27,6 @@ public class Main {
                 if (!visited[row][col]) {
                     bombCount = 1;
                     isChecked = false;
-
                     visited[row][col] = true;
                     dfs(row, col, arr[row][col]);
                 }
@@ -47,8 +46,8 @@ public class Main {
                 bombCount++;
 
                 if (!isChecked && bombCount >= 4) {
-                    totalBombCount++;
                     isChecked = true;
+                    totalBombCount++;
                 }
                 maxBlockSize = Math.max(maxBlockSize, bombCount);
 
