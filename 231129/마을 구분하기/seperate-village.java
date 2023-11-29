@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
@@ -12,9 +11,10 @@ public class Main {
 
     private static final int HUMAN = 1;
 
-    private static int n;
+    private static int n, peopleNum = 1;
     private static int[][] arr;
     private static boolean[][] visited;
+    private static final List<Integer> peopleNums = new ArrayList<>();
 
     public static void main(String[] args) {
         n = sc.nextInt();
@@ -26,62 +26,42 @@ public class Main {
             }
         }
 
-        List<Village> villages = new ArrayList<>();
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
-                if (!visited[row][col] && arr[row][col] == HUMAN) {
+                if (canGo(row, col)) {
                     visited[row][col] = true;
-                    Village village = new Village();
-                    village.addHuman();
-                    dfs(row, col, village);
-                    villages.add(village);
+                    peopleNum = 1;
+                    dfs(row, col);
+                    peopleNums.add(peopleNum);
                 }
             }
         }
 
-        villages.sort(Comparator.comparing(Village::humans));
-
-        StringBuilder answer = new StringBuilder();
-        answer.append(villages.size()).append(System.lineSeparator());
-        String result = villages.stream()
-                .map(Village::humans)
-                .map(String::valueOf)
-                .collect(Collectors.joining(System.lineSeparator()));
-        answer.append(result);
-        System.out.println(answer);
+        peopleNums.sort(Comparator.naturalOrder());
+        System.out.println(peopleNums.size());
+        for (Integer num : peopleNums) {
+            System.out.println(num);
+        }
     }
 
-    private static void dfs(int row, int col, Village village) {
+    private static boolean canGo(int row, int col) {
+        return arr[row][col] == HUMAN && !visited[row][col];
+    }
+
+    private static void dfs(int row, int col) {
         for (int d = 0; d < MAX_D; d++) {
             int nextRow = row + dRow[d];
             int nextCol = col + dCol[d];
 
             if (isInRange(nextRow, nextCol) && canGo(nextRow, nextCol)) {
                 visited[nextRow][nextCol] = true;
-                village.addHuman();
-                dfs(nextRow, nextCol, village);
+                peopleNum++;
+                dfs(nextRow, nextCol);
             }
         }
     }
 
     private static boolean isInRange(int row, int col) {
         return row < n && col < n && row >= 0 && col >= 0;
-    }
-
-    private static boolean canGo(int row, int col) {
-        return arr[row][col] == HUMAN && !visited[row][col];
-    }
-}
-
-class Village {
-
-    private int humans = 0;
-
-    public void addHuman() {
-        humans++;
-    }
-
-    public int humans() {
-        return humans;
     }
 }
