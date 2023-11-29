@@ -8,7 +8,7 @@ public class Main {
 
     private static int n, bombCount;
     private static boolean isChecked;
-    private static int totalBombCount = 0, maxBlockSize = 0;
+    private static int totalBombCount = 0, maxBlockSize = 1;
     private static int[][] arr;
     private static boolean[][] visited;
 
