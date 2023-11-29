@@ -7,7 +7,7 @@ public class Main {
     private static final int MAX_D = dRow.length;
 
     private static int n, m;
-    private static int answerK = 0, maximumSafeArea = 0, maximumHeight = 0;
+    private static int answerK = Integer.MAX_VALUE, maximumSafeArea = 0, maximumHeight = 0;
     private static int[][] arr;
     private static boolean[][] visited;
 
@@ -29,7 +29,7 @@ public class Main {
 
             for (int row = 0; row < n; row++) {
                 for (int col = 0; col < m; col++) {
-                    if (canGo(row, col, k)) {
+                    if (notSink(row, col, k) && notVisited(row, col)) {
                         visited[row][col] = true;
                         safeArea++;
                         dfs(row, col, k);
@@ -39,10 +39,9 @@ public class Main {
 
             if (safeArea > maximumSafeArea) {
                 maximumSafeArea = safeArea;
-
-                if (answerK != k) {
-                    answerK = k;
-                }
+                answerK = k;
+            } else if (safeArea == maximumSafeArea) {
+                answerK = Math.min(answerK, k);
             }
 
             visited = new boolean[n][m];
@@ -51,23 +50,27 @@ public class Main {
         System.out.printf("%d %d", answerK, maximumSafeArea);
     }
 
+    private static boolean notSink(int row, int col, int k) {
+        return arr[row][col] > k;
+    }
+
+    private static boolean notVisited(int row, int col) {
+        return !visited[row][col];
+    }
+
     private static void dfs(int row, int col, int k) {
         for (int d = 0; d < MAX_D; d++) {
             int nextRow = row + dRow[d];
             int nextCol = col + dCol[d];
 
-            if (isInRange(nextRow, nextCol) && canGo(nextRow, nextCol, k)) {
+            if (inRange(nextRow, nextCol) && notVisited(nextRow, nextCol) && notSink(nextRow, nextCol, k)) {
                 visited[nextRow][nextCol] = true;
                 dfs(nextRow, nextCol, k);
             }
         }
     }
 
-    private static boolean isInRange(int row, int col) {
+    private static boolean inRange(int row, int col) {
         return row < n && col < m && row >= 0 && col >= 0;
-    }
-
-    private static boolean canGo(int row, int col, int k) {
-        return arr[row][col] > k && !visited[row][col];
     }
 }
