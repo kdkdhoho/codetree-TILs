@@ -24,18 +24,16 @@ public class Main {
         int row = 0;
         int col = 0;
         visited[row][col] = true;
-
         dfs(row, col);
 
-        System.out.println(0);
+        int result = 0;
+        if (visited[n - 1][m - 1]) {
+            result = 1;
+        }
+        System.out.print(result);
     }
 
     private static void dfs(int row, int col) {
-        if (row == n - 1 && col == m - 1) {
-            System.out.println(1);
-            System.exit(0);
-        }
-
         for (int d = 0; d < D_SIZE; d++) {
             int nextRow = row + dRow[d];
             int nextCol = col + dCol[d];
