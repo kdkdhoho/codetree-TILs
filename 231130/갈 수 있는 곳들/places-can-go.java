@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Point;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -26,7 +26,7 @@ public class Main {
                 arr[i][j] = sc.nextInt();
             }
         }
-        points = new Point[2];
+        points = new Point[k];
         for (int i = 0; i < k; i++) {
             points[i] = new Point(sc.nextInt() - 1, sc.nextInt() - 1);
         }
