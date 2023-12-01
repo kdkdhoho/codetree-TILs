@@ -1,18 +1,8 @@
-import java.awt.Point;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-/**
- * 기능 요구사항
- * - [x] n*n크기의 격자가 있고 각 격자에는 1~100이하의 숫자가 있다.
- * - 특정 위치에서 시작해 아래 조건을 만족하는 숫자의 위치를 찾아 상하좌우로만 이동한다.
- * - 시작 위치의 인접한 칸들 중, 숫자가 시작 위치보다 작은 곳으로는 모두 이동이 가능하다.
- * - 이동이 가능한 위치들 중, 가장 높은 숫자가 적힌 곳으로 이동한다.
- * - 이때 가장 높은 숫자가 여러 개인 경우, 행과 열 크기가 작은 곳으로 이동한다.
- * - 이동을 k번 반복한 이후의 위치를 구한다.
- * - k번 반복하지 않았지만 더 이상 이동할 위치가 없다면 움직임을 종료한다.
- */
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
     private static final int[] dRow = {-1, 1, 0, 0};
@@ -72,19 +62,19 @@ public class Main {
                     int nextNumber = arr[nextRow][nextCol];
                     visited[nextRow][nextCol] = true;
 
-                    if (nextNumber > maxNumber) { // 바라보고 있는 숫자가, 기록해놓은 숫자 이상이면
-                        maxNumber = nextNumber; // 기록하는 숫자 갱신
-                        markedRow = nextRow;
-                        markedCol = nextCol;
-                    } else if (nextNumber == maxNumber) {
-                        if (nextRow < markedRow) {
+                    if (nextNumber == maxNumber) {
+                        if (nextRow < markedRow) { // 바라보는 행이, 기록해놓은 행보다 작다면 갱신
                             markedRow = nextRow;
                             markedCol = nextCol;
                             continue;
                         }
-                        if (nextRow == markedRow && nextCol < markedCol) {
+                        if (nextRow == markedRow && nextCol < markedCol) { // 바라보는 곳이 행은 같은데 열이 더 작다면 갱신
                             markedCol = nextCol;
                         }
+                    } else if (nextNumber > maxNumber) {
+                        maxNumber = nextNumber; // 기록하는 숫자 갱신
+                        markedRow = nextRow;
+                        markedCol = nextCol;
                     }
 
                     queue.add(new Point(nextRow, nextCol));
