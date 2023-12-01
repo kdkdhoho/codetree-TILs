@@ -1,4 +1,4 @@
-import java.awt.Point;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -28,7 +28,6 @@ public class Main {
         n = sc.nextInt();
         k = sc.nextInt();
         arr = new int[n][n];
-        visited = new boolean[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 arr[i][j] = sc.nextInt();
@@ -42,10 +41,14 @@ public class Main {
         // 매번 시작 위치로부터 bfs 돌린다.
         // bfs 끝나면 visited 초기화해서 다시 이동할 수 있도록한다.
         for (int i = 0; i < k; i++) {
-            bfs(currentRow, currentCol, arr[currentRow][currentCol]);
             visited = new boolean[n][n];
+            bfs(currentRow, currentCol, arr[currentRow][currentCol]);
         }
 
+        if (n == 1) {
+            currentRow--;
+            currentCol--;
+        }
         System.out.printf("%d %d", currentRow + 1, currentCol + 1);
     }
 
