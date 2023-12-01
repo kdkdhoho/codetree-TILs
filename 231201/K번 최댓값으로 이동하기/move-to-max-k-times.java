@@ -63,13 +63,13 @@ public class Main {
                     visited[nextRow][nextCol] = true;
 
                     if (nextNumber == maxNumber) {
+                        if (nextRow == markedRow && nextCol < markedCol) { // 바라보는 곳이 행은 같은데 열이 더 작다면 갱신
+                            markedCol = nextCol;
+                        }
                         if (nextRow < markedRow) { // 바라보는 행이, 기록해놓은 행보다 작다면 갱신
                             markedRow = nextRow;
                             markedCol = nextCol;
                             continue;
-                        }
-                        if (nextRow == markedRow && nextCol < markedCol) { // 바라보는 곳이 행은 같은데 열이 더 작다면 갱신
-                            markedCol = nextCol;
                         }
                     } else if (nextNumber > maxNumber) {
                         maxNumber = nextNumber; // 기록하는 숫자 갱신
