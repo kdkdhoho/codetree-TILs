@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Point;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
