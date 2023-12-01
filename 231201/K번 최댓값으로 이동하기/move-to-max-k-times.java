@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Point;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -45,10 +45,6 @@ public class Main {
             bfs(currentRow, currentCol, arr[currentRow][currentCol]);
         }
 
-        if (n == 1) {
-            currentRow--;
-            currentCol--;
-        }
         System.out.printf("%d %d", currentRow + 1, currentCol + 1);
     }
 
