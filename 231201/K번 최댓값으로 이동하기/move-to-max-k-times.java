@@ -1,4 +1,4 @@
-import java.awt.Point;
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -96,6 +96,9 @@ public class Main {
             }
         }
 
+        if (markedRow == n || markedCol == n) {
+            return;
+        }
         currentRow = markedRow;
         currentCol = markedCol;
     }
