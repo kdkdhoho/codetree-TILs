@@ -31,8 +31,9 @@ public class Main {
             }
         }
 
+        canMeltWaters = new boolean[n][m];
+
         while (iceCount != 0) {
-            canMeltWaters = new boolean[n][m];
             for (int i = 0; i < n; i++) {
                 Arrays.fill(canMeltWaters[i], true);
             }
