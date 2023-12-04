@@ -17,6 +17,7 @@ public class Main {
     private static int[][] arr;
     private static int iceCount = 0, meltingTime = 0;
     private static boolean[][] canMeltWaters;
+    private static boolean[][] visited;
 
     public static void main(String[] args) {
         n = sc.nextInt();
@@ -32,10 +33,13 @@ public class Main {
         }
 
         canMeltWaters = new boolean[n][m];
-
+        visited = new boolean[n][m];
         while (iceCount != 0) {
             for (int i = 0; i < n; i++) {
                 Arrays.fill(canMeltWaters[i], true);
+            }
+            for (int i = 0; i < n; i++) {
+                Arrays.fill(visited[i], false);
             }
 
             lastIceCount = iceCount;
@@ -62,7 +66,6 @@ public class Main {
     }
 
     private static boolean canReachSide(int row, int col) {
-        boolean[][] visited = new boolean[n][m];
         Queue<Point> queue = new LinkedList<>();
 
         visited[row][col] = true;
