@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -17,7 +17,6 @@ public class Main {
     private static int[][] arr;
     private static int iceCount = 0, meltingTime = 0;
     private static boolean[][] canMeltWaters;
-    private static boolean[][] changed;
 
     public static void main(String[] args) {
         n = sc.nextInt();
@@ -31,12 +30,12 @@ public class Main {
                 }
             }
         }
-        canMeltWaters = new boolean[n][m];
-        changed = new boolean[n][m];
 
         while (iceCount != 0) {
-            initCanMeltWaters();
-            initChanged();
+            canMeltWaters = new boolean[n][m];
+            for (int i = 0; i < n; i++) {
+                Arrays.fill(canMeltWaters[i], true);
+            }
 
             lastIceCount = iceCount;
             meltingTime++;
@@ -46,18 +45,6 @@ public class Main {
         }
 
         System.out.printf("%d %d", meltingTime, lastIceCount);
-    }
-
-    private static void initCanMeltWaters() {
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(canMeltWaters[i], true);
-        }
-    }
-
-    private static void initChanged() {
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(changed[i], false);
-        }
     }
 
     private static void checkCanMeltWaters() {
@@ -115,14 +102,14 @@ public class Main {
     private static void melt() {
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < m; col++) {
-                if (arr[row][col] == WATER && !changed[row][col] && canMeltWaters[row][col]) {
+                if (arr[row][col] == WATER && canMeltWaters[row][col]) {
                     for (int d = 0; d < MAX_D; d++) {
                         int nextRow = row + dRow[d];
                         int nextCol = col + dCol[d];
 
                         if (inRange(nextRow, nextCol) && arr[nextRow][nextCol] == ICE) {
                             iceCount--;
-                            changed[nextRow][nextCol] = true;
+                            canMeltWaters[nextRow][nextCol] = false;
                             arr[nextRow][nextCol] = WATER;
                         }
                     }
