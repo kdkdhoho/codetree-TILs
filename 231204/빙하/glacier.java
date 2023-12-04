@@ -1,4 +1,4 @@
-import java.awt.Point;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -31,13 +31,12 @@ public class Main {
                 }
             }
         }
+        canMeltWaters = new boolean[n][m];
+        changed = new boolean[n][m];
 
         while (iceCount != 0) {
-            canMeltWaters = new boolean[n][m];
-            for (int i = 0; i < n; i++) {
-                Arrays.fill(canMeltWaters[i], true);
-            }
-            changed = new boolean[n][m];
+            initCanMeltWaters();
+            initChanged();
 
             lastIceCount = iceCount;
             meltingTime++;
@@ -49,7 +48,17 @@ public class Main {
         System.out.printf("%d %d", meltingTime, lastIceCount);
     }
 
-    // O(NM)
+    private static void initCanMeltWaters() {
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(canMeltWaters[i], true);
+        }
+    }
+
+    private static void initChanged() {
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(changed[i], false);
+        }
+    }
 
     private static void checkCanMeltWaters() {
         for (int row = 2; row < n - 2; row++) {
