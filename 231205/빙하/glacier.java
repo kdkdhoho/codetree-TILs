@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -13,7 +12,7 @@ public class Main {
 
     private static int n, m;
     private static int[][] arr;
-    private static boolean[][] canMelt;
+    private static boolean[][] changed;
     private static int meltingTime = 0, lastIceCount = 0, iceCount = 0;
 
     public static void main(String[] args) {
@@ -32,32 +31,31 @@ public class Main {
         while (iceCount != 0) {
             meltingTime++;
             lastIceCount = iceCount;
-            canMelt = new boolean[n][m];
-            for (int i = 0; i < n; i++) {
-                Arrays.fill(canMelt[i], true);
-            }
 
-            checkCanMeltWater();
-            melt();
+            changed = new boolean[n][m];
+
+            for (int row = 0; row < n; row++) {
+                for (int col = 0; col < m; col++) {
+                    if (arr[row][col] == WATER && !changed[row][col]) {
+                        if (isSide(row, col) || canReachSide(row, col)) {
+                            melt(row, col);
+                            // 사방 돌면서 1로 바꾼다.
+                            // 1로 바꿀 때, changed[row][col] = true를 한다.
+                            // 1로 바꿀 때, iceCount--도 해준다.
+                        }
+                    }
+                }
+            }
         }
 
         System.out.printf("%d %d", meltingTime, lastIceCount);
     }
 
-    private static void checkCanMeltWater() {
-        for (int row = 2; row < n - 2; row++) {
-            for (int col = 2; col < m - 2; col++) {
-                if (arr[row][col] == WATER) {
-                    if (connectToSide(row, col)) {
-                        continue;
-                    }
-                    canMelt[row][col] = false;
-                }
-            }
-        }
+    private static boolean isSide(int row, int col) {
+        return row == 0 || row == n - 1 || col == 0 || col == m - 1;
     }
 
-    private static boolean connectToSide(int startRow, int startCol) {
+    private static boolean canReachSide(int startRow, int startCol) {
         boolean[][] visited = new boolean[n][m];
         Queue<Integer> rowQueue = new LinkedList<>();
         Queue<Integer> colQueue = new LinkedList<>();
@@ -78,7 +76,7 @@ public class Main {
                 int nextRow = row + dRow[d];
                 int nextCol = col + dCol[d];
 
-                if (inRange(nextRow, nextCol) && !visited[nextRow][nextCol] && arr[nextRow][nextCol] == WATER) {
+                if (inRange(nextRow, nextCol) && !visited[nextRow][nextCol] && arr[nextRow][nextCol] == WATER && !changed[nextRow][nextCol]) {
                     visited[nextRow][nextCol] = true;
                     rowQueue.add(nextRow);
                     colQueue.add(nextCol);
@@ -89,29 +87,19 @@ public class Main {
         return false;
     }
 
-    private static boolean isSide(int row, int col) {
-        return row == 0 || row == n - 1 || col == 0 || col == m - 1;
-    }
-
     private static boolean inRange(int row, int col) {
         return row >= 0 && row < n && col >= 0 && col < m;
     }
 
-    private static void melt() {
-        for (int row = 0; row < n; row++) {
-            for (int col = 0; col < m; col++) {
-                if (arr[row][col] == WATER && canMelt[row][col]) {
-                    for (int d = 0; d < dRow.length; d++) {
-                        int nextRow = row + dRow[d];
-                        int nextCol = col + dCol[d];
+    private static void melt(int row, int col) {
+        for (int d = 0; d < dRow.length; d++) {
+            int nextRow = row + dRow[d];
+            int nextCol = col + dCol[d];
 
-                        if (inRange(nextRow, nextCol) && arr[nextRow][nextCol] == ICE) {
-                            iceCount--;
-                            canMelt[nextRow][nextCol] = false;
-                            arr[nextRow][nextCol] = WATER;
-                        }
-                    }
-                }
+            if (inRange(nextRow, nextCol) && arr[nextRow][nextCol] == ICE) {
+                iceCount--;
+                changed[nextRow][nextCol] = true;
+                arr[nextRow][nextCol] = WATER;
             }
         }
     }
