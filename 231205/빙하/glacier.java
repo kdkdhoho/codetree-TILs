@@ -12,7 +12,7 @@ public class Main {
 
     private static int n, m;
     private static int[][] arr;
-    private static boolean[][] changed;
+    private static boolean[][] visited;
     private static int meltingTime = 0, lastIceCount = 0, iceCount = 0;
 
     public static void main(String[] args) {
@@ -32,16 +32,22 @@ public class Main {
             meltingTime++;
             lastIceCount = iceCount;
 
-            changed = new boolean[n][m];
+            visited = new boolean[n][m];
+
+            bfs(0, 0);
 
             for (int row = 0; row < n; row++) {
                 for (int col = 0; col < m; col++) {
-                    if (arr[row][col] == WATER && !changed[row][col]) {
-                        if (isSide(row, col) || canReachSide(row, col)) {
-                            melt(row, col);
-                            // 사방 돌면서 1로 바꾼다.
-                            // 1로 바꿀 때, changed[row][col] = true를 한다.
-                            // 1로 바꿀 때, iceCount--도 해준다.
+                    if (arr[row][col] == ICE) {
+                        for (int d = 0; d < dRow.length; d++) {
+                            int nextRow = row + dRow[d];
+                            int nextCol = col + dCol[d];
+
+                            if (visited[nextRow][nextCol]) {
+                                arr[row][col] = 0;
+                                iceCount--;
+                                break;
+                            }
                         }
                     }
                 }
@@ -51,12 +57,7 @@ public class Main {
         System.out.printf("%d %d", meltingTime, lastIceCount);
     }
 
-    private static boolean isSide(int row, int col) {
-        return row == 0 || row == n - 1 || col == 0 || col == m - 1;
-    }
-
-    private static boolean canReachSide(int startRow, int startCol) {
-        boolean[][] visited = new boolean[n][m];
+    private static void bfs(int startRow, int startCol) {
         Queue<Integer> rowQueue = new LinkedList<>();
         Queue<Integer> colQueue = new LinkedList<>();
 
@@ -68,39 +69,23 @@ public class Main {
             int row = rowQueue.poll();
             int col = colQueue.poll();
 
-            if (isSide(row, col)) {
-                return true;
-            }
-
             for (int d = 0; d < dRow.length; d++) {
                 int nextRow = row + dRow[d];
                 int nextCol = col + dCol[d];
 
-                if (inRange(nextRow, nextCol) && !visited[nextRow][nextCol] && arr[nextRow][nextCol] == WATER && !changed[nextRow][nextCol]) {
+                if (inRange(nextRow, nextCol)
+                        && !visited[nextRow][nextCol]
+                        && arr[nextRow][nextCol] == WATER
+                ) {
                     visited[nextRow][nextCol] = true;
                     rowQueue.add(nextRow);
                     colQueue.add(nextCol);
                 }
             }
         }
-
-        return false;
     }
 
     private static boolean inRange(int row, int col) {
         return row >= 0 && row < n && col >= 0 && col < m;
-    }
-
-    private static void melt(int row, int col) {
-        for (int d = 0; d < dRow.length; d++) {
-            int nextRow = row + dRow[d];
-            int nextCol = col + dCol[d];
-
-            if (inRange(nextRow, nextCol) && arr[nextRow][nextCol] == ICE) {
-                iceCount--;
-                changed[nextRow][nextCol] = true;
-                arr[nextRow][nextCol] = WATER;
-            }
-        }
     }
 }
