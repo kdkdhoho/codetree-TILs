@@ -9,6 +9,7 @@ public class Main {
     private static int n;
     private static int startRow, startCol, endRow, endCol;
     private static int[][] steps;
+    private static boolean canMarkNextStep = true;
 
     public static void main(String[] args) {
         n = sc.nextInt();
@@ -23,15 +24,15 @@ public class Main {
         }
         steps[startRow][startCol] = 0;
 
-        int count = 0;
-        while (steps[endRow][endCol] == -1 || count >= 100) {
+        while (steps[endRow][endCol] == -1 && canMarkNextStep) {
             markNextSteps();
-            count++;
         }
         System.out.println(steps[endRow][endCol]);
     }
 
     private static void markNextSteps() {
+        boolean isMarked = false;
+
         for (int row = 0; row < n; row++) {
             for (int col = 0; col < n; col++) {
                 if (steps[row][col] != -1) {
@@ -41,11 +42,14 @@ public class Main {
 
                         if (inArray(nextRow, nextCol) && steps[nextRow][nextCol] == -1) {
                             steps[nextRow][nextCol] = steps[row][col] + 1;
+                            isMarked = true;
                         }
                     }
                 }
             }
         }
+
+        canMarkNextStep = isMarked;
     }
 
     private static boolean inArray(int row, int col) {
