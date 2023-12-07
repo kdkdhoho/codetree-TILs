@@ -23,12 +23,10 @@ public class Main {
         }
         steps[startRow][startCol] = 0;
 
-        try {
-            while (steps[endRow][endCol] == -1) {
-                markNextSteps();
-            }
-        } catch (Exception e) {
-            System.out.println(-1);
+        int count = 0;
+        while (steps[endRow][endCol] == -1 || count >= 100) {
+            markNextSteps();
+            count++;
         }
         System.out.println(steps[endRow][endCol]);
     }
