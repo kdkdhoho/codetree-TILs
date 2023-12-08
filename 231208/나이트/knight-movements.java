@@ -18,6 +18,11 @@ public class Main {
 
     public static void main(String[] args) {
         n = sc.nextInt();
+        if (n == 1) {
+            System.out.println(1);
+            System.exit(0);
+        }
+        
         startRow = sc.nextInt() - 1;
         startCol = sc.nextInt() - 1;
         endRow = sc.nextInt() - 1;
