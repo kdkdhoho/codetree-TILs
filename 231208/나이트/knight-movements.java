@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         n = sc.nextInt();
         if (n == 1) {
-            System.out.println(1);
+            System.out.println(0);
             System.exit(0);
         }
         
