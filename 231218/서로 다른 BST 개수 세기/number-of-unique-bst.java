@@ -14,10 +14,8 @@ public class Main {
         for (int i = 2; i <= n; i++) {
             int sum = 0;
 
-            int right = i - 1;
             for (int left = 0; left <= i - 1; left++) {
-                sum += dp[left] * dp[right];
-                right--;
+                sum += dp[left] * dp[i - 1 - left];
             }
 
             dp[i] = sum;
