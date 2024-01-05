@@ -51,7 +51,7 @@ public class Main {
                 int nextRow = startRow + dRow[d];
                 int nextCol = startCol + dCol[d];
 
-                if (inArray(nextRow, nextCol) && isBigger(nextRow, nextCol, startRow, startCol)) {
+                if (inArray(nextRow, nextCol) && !visited[nextRow][nextCol] && isBigger(nextRow, nextCol, startRow, startCol)) {
                     visited[nextRow][nextCol] = true;
                     queue.add(new Point(nextRow, nextCol));
                     distance.add(currentDistance + 1);
