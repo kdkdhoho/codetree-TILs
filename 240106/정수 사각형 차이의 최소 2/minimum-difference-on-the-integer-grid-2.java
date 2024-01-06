@@ -48,10 +48,28 @@ public class Main {
                 int diffA = cellA.diff();
                 int diffB = cellB.diff();
 
-                if (diffA <= diffB) {
+                if (diffA < diffB) {
                     dp[row][col] = cellA;
-                } else {
+                } else if (diffA > diffB) {
                     dp[row][col] = cellB;
+                } else {
+                    if (cellA.max() == cellB.max()) {
+                        if (cellA.min() > cellB.min()) {
+                            dp[row][col] = cellA;
+                        } else if (cellA.min() < cellB.min()) {
+                            dp[row][col] = cellB;
+                        } else {
+                            dp[row][col] = cellA;
+                        }
+                    } else {
+                        if (cellA.max() < cellB.max()) {
+                            dp[row][col] = cellA;
+                        } else if (cellA.max() > cellB.max()) {
+                            dp[row][col] = cellB;
+                        } else {
+                            dp[row][col] = cellA;
+                        }
+                    }
                 }
             }
         }
