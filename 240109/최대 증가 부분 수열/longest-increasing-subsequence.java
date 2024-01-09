@@ -17,7 +17,7 @@ public class Main {
         }
 
         int[] dp = new int[n];
-        Arrays.fill(dp, -1);
+        Arrays.fill(dp, 1);
         dp[0] = 1;
 
         for (int i = 1; i < n; i++) {
