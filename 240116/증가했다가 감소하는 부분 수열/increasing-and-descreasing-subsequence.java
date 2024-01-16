@@ -33,7 +33,7 @@ public class Main {
             }
 
             // 증가-감소로 변하는 경우
-            dp[i][DOWN] = Math.max(dp[i][DOWN], dp[i][UP] + 1); // `dp[i][UP] + 1`이 아닌 이유: 이미 위에서 dp[i][UP] 값에서 처리했기 때문. 즉, 결과적으로 같다.
+            dp[i][DOWN] = Math.max(dp[i][DOWN], dp[i][UP]); // `dp[i][UP] + 1`이 아닌 이유: 이미 위에서 dp[i][UP] 값에서 처리했기 때문
         }
 
         int answer = 0;
