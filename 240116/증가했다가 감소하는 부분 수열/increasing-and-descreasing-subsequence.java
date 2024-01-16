@@ -24,7 +24,7 @@ public class Main {
 
             for (int j = 0; j < i; j++) {
                 if (arr[j] < arr[i]) { // 추가했을 때 증가하면
-                    dp[i][UP] = Math.max(dp[i][DOWN], dp[j][UP] + 1); // 증가하는 케이스에 대한 dp 값 갱신
+                    dp[i][UP] = Math.max(dp[i][UP], dp[j][UP] + 1); // 증가하는 케이스에 대한 dp 값 갱신
                 }
 
                 if (arr[j] > arr[i]) { // 추가했을 때 감소하면
@@ -33,7 +33,7 @@ public class Main {
             }
 
             // 증가-감소로 변하는 경우
-            dp[i][DOWN] = Math.max(dp[i][DOWN], dp[i][UP]); // `dp[i][UP] + 1`이 아닌 이유?
+            dp[i][DOWN] = Math.max(dp[i][DOWN], dp[i][UP]); // `dp[i][UP] + 1`이 아닌 이유: 이미 위에서 dp[i][UP] 값에서 처리했기 때문. 즉, 결과적으로 같다.
         }
 
         int answer = 0;
