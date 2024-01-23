@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
+    private static final int NONE = -1;
 
     private static int n, m;
     private static int[] coins;
@@ -16,7 +17,7 @@ public class Main {
         }
 
         int[] dp = new int[m + 1];
-        Arrays.fill(dp, -1);
+        Arrays.fill(dp, NONE);
         dp[0] = 0;
 
         for (int i = 1; i < dp.length; i++) {
@@ -24,7 +25,7 @@ public class Main {
                 int coin = coins[j];
 
                 int k = i - coin;
-                if (inArray(k)) {
+                if (inArray(k) && dp[k] != -1) {
                     dp[i] = Math.max(dp[i], dp[k] + 1);
                 }
             }
