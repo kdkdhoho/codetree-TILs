@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -15,6 +16,9 @@ public class Main {
         }
 
         int[] dp = new int[m + 1];
+        Arrays.fill(dp, -1);
+        dp[0] = 0;
+
         for (int i = 1; i < dp.length; i++) {
             for (int j = 0; j < coins.length; j++) {
                 int coin = coins[j];
@@ -25,6 +29,7 @@ public class Main {
                 }
             }
         }
+
         System.out.println(dp[m]);
     }
 
