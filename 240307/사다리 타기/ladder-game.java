@@ -3,18 +3,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-/**
- * 사람 수 n과 사다리의 Step이 m개 주어진다.
- * 사다리 Step의 위치는 주어진다.
- * <p>
- * 이때, Step을 최소한으로 골라서 Step이 모두 존재할 때와 동일한 결과를 낳도록 하시오.
- */
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
 
     private static int n, m, answer = Integer.MAX_VALUE;
     private static final Steps steps = new Steps(new ArrayList<>());
-    private static final List<Integer> expected = new ArrayList<>();
+    private static List<Integer> expected;
 
     public static void main(String[] args) {
         n = sc.nextInt();
@@ -28,28 +22,26 @@ public class Main {
             steps.add(step);
         }
 
-        createExpected();
+        expected = playLadder(steps);
 
         recursive(0, new ArrayList<>());
 
         System.out.println(answer);
     }
 
-    private static void createExpected() {
+    private static List<Integer> playLadder(Steps steps) {
+        List<Integer> result = new ArrayList<>();
         for (int position = 1; position <= n; position++) {
             int resultPosition = steps.play(position);
-            expected.add(resultPosition);
+            result.add(resultPosition);
         }
+        return result;
     }
 
     private static void recursive(int index, List<Step> chooseSteps) {
         if (index >= steps.size()) {
-            List<Integer> result = new ArrayList<>();
             Steps steps = new Steps(chooseSteps);
-            for (int position = 1; position <= n; position++) {
-                int resultPosition = steps.play(position);
-                result.add(resultPosition);
-            }
+            List<Integer> result = playLadder(steps);
 
             for (int i = 0; i < result.size(); i++) {
                 if (expected.get(i) != result.get(i)) {
@@ -143,10 +135,6 @@ class Step {
     public Step(int lineNumber, int height) {
         this.lineNumber = lineNumber;
         this.height = height;
-    }
-
-    public int getLineNumber() {
-        return lineNumber;
     }
 
     public int getHeight() {
