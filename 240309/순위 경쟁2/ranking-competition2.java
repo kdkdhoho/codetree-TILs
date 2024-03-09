@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int answer = 0;
-        boolean[] winner = new boolean[2];
+        boolean[] winner = {true, true};
 
         int scoreA = 0;
         int scoreB = 0;
@@ -30,8 +30,10 @@ public class Main {
             boolean[] newWinner = new boolean[2];
             if (scoreA > scoreB) {
                 newWinner[0] = true;
+                newWinner[1] = false;
             }
             if (scoreA < scoreB) {
+                newWinner[0] = false;
                 newWinner[1] = true;
             }
             if (scoreA == scoreB) {
@@ -39,15 +41,12 @@ public class Main {
                 newWinner[1] = true;
             }
 
-            if (winner[0] != newWinner[0]) {
-                winner = newWinner;
-                answer++;
-                continue;
-            }
-            if (winner[1] != newWinner[1]) {
-                winner = newWinner;
-                answer++;
-                continue;
+            for (int j = 0; j < 2; j++) {
+                if (winner[j] != newWinner[j]) {
+                    winner = newWinner;
+                    answer++;
+                    break;
+                }
             }
         }
 
