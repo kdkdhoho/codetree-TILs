@@ -1,40 +1,73 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
+import org.jetbrains.annotations.NotNull;
 
+/**
+ * n개의 수가 있다. 두 번째로 작은 수의 위치를 출력하시오.
+ * <p>
+ * 이때, 두 번째로 작은 수가 없거나 여러 개가 있는 경우 -1을 출력하시오
+ */
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
-        int[] numbers = new int[n];
-        for (int i=0; i<n; i++) {
-            numbers[i] = sc.nextInt();
+        Number[] numbers = new Number[n];
+        for (int i = 0; i < n; i++) {
+            int position = i + 1;
+            int value = sc.nextInt();
+
+            numbers[i] = new Number(position, value);
         }
 
-        int answer = -1;
-        int minNumber = Integer.MAX_VALUE;
-        int minNumber2 = Integer.MAX_VALUE;
+        Arrays.sort(numbers);
 
-        // 두 번째로 작은 수 찾기
-        for (int i=0; i<n; i++) {
-            int number = numbers[i];
+        Number minNumber = numbers[0];
+        Number minNumber2 = null;
+        for (int i = 1; i < n; i++) {
+            int value = numbers[i].value;
 
-            if (number < minNumber) {
+            if (minNumber2 != null && value == minNumber2.value) {
+                System.out.println(-1);
+                return;
+            }
+
+            if (value < minNumber.value) {
                 minNumber2 = minNumber;
-                minNumber = number;
+                minNumber = numbers[i];
                 continue;
             }
 
-            if (number > minNumber && number < minNumber2) {
-                minNumber2 = number;
-                answer = i + 1;
+            if (minNumber2 == null && value > minNumber.value) {
+                minNumber2 = numbers[i];
                 continue;
             }
 
-            if (minNumber2 == number) {
-                answer = -1;
+            if (minNumber2 != null && value > minNumber.value && value < minNumber2.value) {
+                minNumber2 = numbers[i];
             }
         }
 
-        System.out.print(answer);
+        if (minNumber2 == null) {
+            System.out.println(-1);
+            return;
+        }
+        System.out.println(minNumber2.position);
+    }
+}
+
+class Number implements Comparable<Number> {
+
+    int position;
+    int value;
+
+    public Number(int position, int value) {
+        this.position = position;
+        this.value = value;
+    }
+
+    @Override
+    public int compareTo(@NotNull Number o) {
+        return this.value - o.value;
     }
 }
