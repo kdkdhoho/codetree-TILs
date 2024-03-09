@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Scanner;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * n개의 수가 있다. 두 번째로 작은 수의 위치를 출력하시오.
@@ -67,7 +66,7 @@ class Number implements Comparable<Number> {
     }
 
     @Override
-    public int compareTo(@NotNull Number o) {
+    public int compareTo(Number o) {
         return this.value - o.value;
     }
 }
