@@ -29,6 +29,10 @@ public class Main {
                 answer = i + 1;
                 continue;
             }
+
+            if (minNumber2 == number) {
+                answer = -1;
+            }
         }
 
         System.out.print(answer);
