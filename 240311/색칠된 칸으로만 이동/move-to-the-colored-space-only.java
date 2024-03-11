@@ -8,6 +8,7 @@ public class Main {
     private static int arrRow, arrCol;
     private static int[][] arr;
     private static int[][] isColored;
+    private static int coloredCount = 0;
 
     public static void main(String[] args) {
         arrRow = sc.nextInt();
@@ -23,7 +24,15 @@ public class Main {
         for (int row = 0; row < arrRow; row++) {
             for (int col = 0; col < arrCol; col++) {
                 isColored[row][col] = sc.nextInt();
+                if (isColored[row][col] == 1) {
+                    coloredCount++;
+                }
             }
+        }
+
+        if (coloredCount <= 1) {
+            System.out.print(0);
+            return;
         }
 
         int[][] dp = new int[arrRow][arrCol];
