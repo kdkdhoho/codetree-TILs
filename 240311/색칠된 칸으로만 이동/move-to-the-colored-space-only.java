@@ -41,14 +41,9 @@ public class Main {
                 dp[row][col] = Integer.MAX_VALUE;
             }
         }
-        dp[0][0] = 0;
 
         for (int row = 0; row < arrRow; row++) {
             for (int col = 0; col < arrCol; col++) {
-                if (row == 0 && col == 0) {
-                    continue;
-                }
-
                 for (int d = 0; d < 4; d++) {
                     int nextRow = row + dRow[d];
                     int nextCol = col + dCol[d];
