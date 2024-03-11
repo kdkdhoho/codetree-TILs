@@ -52,7 +52,7 @@ public class Main {
             }
         }
 
-        int answer = Integer.MIN_VALUE;
+        int answer = 0;
         for (int row = 0; row < arrRow; row++) {
             for (int col = 0; col < arrCol; col++) {
                 if (isColored[row][col] == 1) {
