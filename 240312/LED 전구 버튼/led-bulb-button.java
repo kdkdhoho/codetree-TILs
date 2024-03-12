@@ -3,12 +3,20 @@ import java.util.Scanner;
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
 
-    private static int n, b;
+    private static int n;
+    private static long b;
     private static int[] lights;
 
     public static void main(String[] args) {
         n = sc.nextInt();
-        b = sc.nextInt() % (int) (Math.pow(2, n - 1));
+        b = sc.nextLong() % (int) (Math.pow(2, n - 1));
+
+        if (n % 2 == 0) {
+            for (int i = 0; i < n; i++) {
+                System.out.println(0);
+            }
+            return;
+        }
 
         lights = new int[n];
         for (int i = 0; i < n; i++) {
