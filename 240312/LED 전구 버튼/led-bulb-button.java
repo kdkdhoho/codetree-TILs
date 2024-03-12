@@ -9,9 +9,13 @@ public class Main {
 
     public static void main(String[] args) {
         n = sc.nextInt();
-        b = sc.nextLong() % (int) (Math.pow(2, n - 1));
-        if (b == 0) {
-            b = (int) Math.pow(2, n - 1);
+        b = sc.nextLong();
+        if (b < Math.pow(2, n - 1)) {
+            b = b;
+        } else if (b % Math.pow(2, n - 1) == 0) {
+            b = (int) (Math.pow(2, n - 1)) + 1;
+        } else {
+            b = b % (int) Math.pow(2, n - 1);
         }
 
         if (n % 2 == 0) {
