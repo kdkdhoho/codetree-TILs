@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         n = sc.nextInt();
-        b = sc.nextLong() % (int) (Math.pow(2, n - 1));
+        b = (sc.nextLong() % (int) (Math.pow(2, n - 1))) + 1;
 
         if (n % 2 == 0) {
             for (int i = 0; i < n; i++) {
