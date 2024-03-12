@@ -8,11 +8,25 @@ public class Main {
 
     public static void main(String[] args) {
         n = sc.nextInt();
-        b = sc.nextInt();
+        b = sc.nextInt() % (int) (Math.pow(2, n - 1));
 
         lights = new int[n];
         for (int i = 0; i < n; i++) {
             lights[i] = sc.nextInt();
+        }
+
+        boolean allZero = true;
+        for (int i = 0; i < n; i++) {
+            if (lights[i] == 0) {
+                allZero = false;
+                break;
+            }
+        }
+        if (allZero) {
+            for (int i = 0; i < n; i++) {
+                System.out.println(0);
+            }
+            return;
         }
 
         for (int cnt = 0; cnt < b; cnt++) {
