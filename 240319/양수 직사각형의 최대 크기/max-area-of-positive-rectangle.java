@@ -21,7 +21,7 @@ public class Main {
 
                         for (int row = row1; row <= row2; row++) {
                             for (int col = col1; col <= col2; col++) {
-                                if (arr[row][col] < 0) {
+                                if (arr[row][col] <= 0) {
                                     isCond = false;
                                     break;
                                 }
