@@ -51,10 +51,10 @@ class Point implements Comparable<Point> {
     @Override
     public int compareTo(Point o) {
         if (this.distanceFromStartingPoint() == o.distanceFromStartingPoint()) {
-            if (this.x == o.y) {
+            if (this.x == o.x) {
                 return this.y - o.y;
             }
-            return this.x - o.y;
+            return this.x - o.x;
         }
         return this.distanceFromStartingPoint() - o.distanceFromStartingPoint();
     }
