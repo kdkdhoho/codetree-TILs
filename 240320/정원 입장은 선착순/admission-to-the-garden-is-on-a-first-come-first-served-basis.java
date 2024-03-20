@@ -15,6 +15,11 @@ public class Main {
             total.add(pair);
         }
 
+        if (n == 1) {
+            System.out.println(0);
+            return;
+        }
+
         int answer = 0;
         int currentTime = 0;
 
