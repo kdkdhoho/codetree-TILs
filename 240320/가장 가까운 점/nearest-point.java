@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * 2차 평면 위에 서로 다른 위치에 n개의 점이 있다.
@@ -67,7 +66,7 @@ class Point implements Comparable<Point> {
     }
 
     @Override
-    public int compareTo(@NotNull Point o) {
+    public int compareTo(Point o) {
         return this.distanceFromStartingPoint() - o.distanceFromStartingPoint();
     }
 }
