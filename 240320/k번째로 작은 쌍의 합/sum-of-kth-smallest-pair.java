@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Main {
@@ -21,31 +20,48 @@ public class Main {
             arrB[i] = sc.nextInt();
         }
 
-        List<Pair> pairs = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            int a = arrA[i];
-            for (int j = 0; j < m; j++) {
-                int b = arrB[j];
+        Arrays.sort(arrA);
+        Arrays.sort(arrB);
 
-                pairs.add(new Pair(a, b));
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        for (int i = 0; i < n; i++) {
+            pq.add(new Pair(arrA[i] + arrB[0], i, 0));
+        }
+
+        for (int i = 0; i < k - 1; i++) {
+            Pair pair = pq.poll();
+            int idx1 = pair.idx1;
+            int idx2 = pair.idx2;
+
+            idx2++;
+            if (idx2 < m) {
+                pq.add(new Pair(arrA[idx1] + arrB[idx2], idx1, idx2));
             }
         }
-        pairs.sort(Comparator.comparingInt(Pair::sum));
-        Pair pair = pairs.get(k - 1);
-        System.out.println(pair.sum());
+
+        System.out.println(pq.peek().sum);
     }
 }
 
-class Pair {
-    int a;
-    int b;
+class Pair implements Comparable<Pair> {
+    int sum;
+    int idx1;
+    int idx2;
 
-    public Pair(int a, int b) {
-        this.a = a;
-        this.b = b;
+    public Pair(int sum, int idx1, int idx2) {
+        this.sum = sum;
+        this.idx1 = idx1;
+        this.idx2 = idx2;
     }
 
-    public int sum() {
-        return a + b;
+    @Override
+    public int compareTo(Pair o) {
+        if (this.sum != o.sum) {
+            return this.sum - o.sum;
+        }
+        if (this.idx1 != o.idx1) {
+            return this.idx1 - o.idx1;
+        }
+        return this.idx2 - o.idx2;
     }
 }
