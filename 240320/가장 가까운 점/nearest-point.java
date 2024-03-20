@@ -1,7 +1,5 @@
 import static java.lang.Math.abs;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -26,22 +24,12 @@ public class Main {
 
         for (int i = 0; i < m; i++) {
             Point point = pq.poll();
-            point.add();
+            point.x += 2;
+            point.y += 2;
             pq.add(point);
         }
 
-        List<Point> points = new ArrayList<>(pq);
-        points.sort((p1, p2) -> {
-            if (p1.distanceFromStartingPoint() == p2.distanceFromStartingPoint()) {
-                if (p1.x == p2.x) {
-                    return p1.y - p2.y;
-                }
-                return p1.x - p2.x;
-            }
-            return p1.distanceFromStartingPoint() - p2.distanceFromStartingPoint();
-        });
-
-        Point point = points.get(0);
+        Point point = pq.peek();
         System.out.printf("%d %d", point.x, point.y);
     }
 }
@@ -60,13 +48,14 @@ class Point implements Comparable<Point> {
         return abs(x) + abs(y);
     }
 
-    public void add() {
-        this.x += 2;
-        this.y += 2;
-    }
-
     @Override
     public int compareTo(Point o) {
+        if (this.distanceFromStartingPoint() == o.distanceFromStartingPoint()) {
+            if (this.x == o.y) {
+                return this.y - o.y;
+            }
+            return this.x - o.y;
+        }
         return this.distanceFromStartingPoint() - o.distanceFromStartingPoint();
     }
 }
