@@ -26,12 +26,12 @@ public class Main {
         while (!total.isEmpty()) {
             Pair pair = total.poll();
 
-            if (pair.a <= currentTime) {
+            if (currentTime < pair.a) {
+                currentTime = pair.a + pair.t;
+            } else {
                 int waitingTime = currentTime - pair.a;
                 answer = max(answer, waitingTime);
                 currentTime += pair.t;
-            } else {
-                currentTime = pair.a + pair.t;
             }
 
             PriorityQueue<Pair> waiters = new PriorityQueue<>(comparingInt(p -> p.idx));
