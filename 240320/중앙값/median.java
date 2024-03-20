@@ -1,26 +1,54 @@
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
 
+    private static int t, m;
+
     public static void main(String[] args) {
-        int t = sc.nextInt();
-        for (int i = 0; i < t; i++) { // 5
-            int m = sc.nextInt();
-            PriorityQueue<Integer> pq = new PriorityQueue<>();
+        t = sc.nextInt();
+        while (t-- > 0) { // 5
+            int m = sc.nextInt(); // 100000
+
             StringBuilder sb = new StringBuilder();
+            int median = 0;
+            // maxHeap
+            PriorityQueue<Integer> lowerNumbers = new PriorityQueue<>(Comparator.reverseOrder());
+            // minHeap
+            PriorityQueue<Integer> higherNumbers = new PriorityQueue<>();
 
-            for (int j = 1; j <= m; j++) { // 100000
+            for (int i = 1; i <= m; i++) {
                 int number = sc.nextInt();
-                pq.add(number);
 
-                if (j % 2 != 0) {
-                    Integer[] array = pq.toArray(new Integer[0]);
-                    Arrays.sort(array); // O(j) // 100000
-                    int middle = array[array.length / 2];
-                    sb.append(middle).append(" ");
+                if (i == 1) {
+                    median = number;
+                    sb.append(median).append(" ");
+                    continue;
+                }
+
+                if (i % 2 == 0) {
+                    if (number >= median) {
+                        higherNumbers.add(number);
+                    } else if (number < median) {
+                        lowerNumbers.add(number);
+                    }
+                } else {
+                    int tmp;
+                    if (lowerNumbers.size() > higherNumbers.size()) {
+                        tmp = lowerNumbers.poll();
+                    } else {
+                        tmp = higherNumbers.poll();
+                    }
+
+                    int[] nums = {number, median, tmp};
+                    Arrays.sort(nums);
+                    median = nums[1];
+                    lowerNumbers.add(nums[0]);
+                    higherNumbers.add(nums[2]);
+                    sb.append(median).append(" ");
                 }
             }
             System.out.println(sb);
