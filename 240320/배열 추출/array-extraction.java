@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Main {
@@ -8,20 +7,20 @@ public class Main {
 
     public static void main(String[] args) {
         int n = sc.nextInt();
-        List<Integer> numbers = new ArrayList<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
 
         for (int i = 0; i < n; i++) {
             int number = sc.nextInt();
+
             if (number > 0) {
-                numbers.add(number);
-                numbers.sort(Collections.reverseOrder());
+                pq.add(number);
+                continue;
+            }
+
+            if (pq.isEmpty()) {
+                System.out.println(0);
             } else {
-                if (numbers.isEmpty()) {
-                    System.out.println(0);
-                } else {
-                    System.out.println(numbers.get(0));
-                    numbers.remove(0);
-                }
+                System.out.println(pq.poll());
             }
         }
     }
