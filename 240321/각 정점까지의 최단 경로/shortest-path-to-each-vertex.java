@@ -27,13 +27,16 @@ public class Main {
             int vertexB = sc.nextInt();
             int weight = sc.nextInt();
 
-            List<Edge> edgesA = graph.get(vertexA);
-            edgesA.add(new Edge(vertexB, weight));
-            graph.put(vertexA, edgesA);
-
-            List<Edge> edgesB = graph.get(vertexB);
-            edgesB.add(new Edge(vertexA, weight));
-            graph.put(vertexB, edgesB);
+            if (vertexB != startVertex) {
+                List<Edge> edgesA = graph.get(vertexA);
+                edgesA.add(new Edge(vertexB, weight));
+                graph.put(vertexA, edgesA);
+            }
+            if (vertexA != startVertex) {
+                List<Edge> edgesB = graph.get(vertexB);
+                edgesB.add(new Edge(vertexA, weight));
+                graph.put(vertexB, edgesB);
+            }
         }
 
         int[] dist = new int[vertexCount + 1];
