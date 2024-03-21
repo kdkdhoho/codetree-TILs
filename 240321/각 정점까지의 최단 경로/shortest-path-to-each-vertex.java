@@ -48,6 +48,10 @@ public class Main {
             int minVertex = element.vertex;
             int minDistance = element.distance;
 
+            if (minDistance != dist[minVertex]) {
+                continue;
+            }
+
             List<Edge> edges = graph.get(minVertex);
             for (Edge edge : edges) {
                 int targetVertex = edge.vertex;
