@@ -2,9 +2,7 @@ import static java.util.Comparator.comparingInt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -17,9 +15,11 @@ public class Main {
         int edgeCount = sc.nextInt();
         int startVertex = sc.nextInt();
 
-        Map<Integer, List<Edge>> graph = new HashMap<>();
+        ArrayList<Edge>[] graph = new ArrayList[vertexCount + 1];
+
+//        Map<Integer, List<Edge>> graph = new HashMap<>();
         for (int v = 1; v <= vertexCount; v++) {
-            graph.put(v, new ArrayList());
+            graph[v] = new ArrayList<>();
         }
 
         for (int i = 0; i < edgeCount; i++) {
@@ -27,16 +27,16 @@ public class Main {
             int vertexB = sc.nextInt();
             int weight = sc.nextInt();
 
-            if (vertexB != startVertex) {
-                List<Edge> edgesA = graph.get(vertexA);
-                edgesA.add(new Edge(vertexB, weight));
-                graph.put(vertexA, edgesA);
-            }
-            if (vertexA != startVertex) {
-                List<Edge> edgesB = graph.get(vertexB);
-                edgesB.add(new Edge(vertexA, weight));
-                graph.put(vertexB, edgesB);
-            }
+            graph[vertexA].add(new Edge(vertexB, weight));
+            graph[vertexB].add(new Edge(vertexA, weight));
+
+//            List<Edge> edgesA = graph.get(vertexA);
+//            edgesA.add(new Edge(vertexB, weight));
+//            graph.put(vertexA, edgesA);
+//
+//            List<Edge> edgesB = graph.get(vertexB);
+//            edgesB.add(new Edge(vertexA, weight));
+//            graph.put(vertexB, edgesB);
         }
 
         int[] dist = new int[vertexCount + 1];
@@ -55,7 +55,8 @@ public class Main {
                 continue;
             }
 
-            List<Edge> edges = graph.get(minVertex);
+//            List<Edge> edges = graph.get(minVertex);
+            List<Edge> edges = graph[minVertex];
             for (Edge edge : edges) {
                 int targetVertex = edge.vertex;
                 int targetWeight = edge.weight;
