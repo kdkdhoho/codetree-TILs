@@ -69,21 +69,22 @@ public class Main {
             }
         }
 
-        StringBuilder answer = new StringBuilder();
+//        StringBuilder answer = new StringBuilder();
         for (int i = 1; i <= vertexCount; i++) {
             if (dist[i] == MAX_DISTANCE) {
-                answer.append(-1).append("\n");
+//                answer.append(-1).append("\n");
+                System.out.println(-1);
             } else {
-                answer.append(dist[i]).append("\n");
+//                answer.append(dist[i]).append("\n");
+                System.out.println(dist[i]);
             }
         }
-        System.out.print(answer);
+//        System.out.print(answer);
     }
 }
 
 class Edge {
-    int vertex;
-    int weight;
+    int vertex, weight;
 
     public Edge(int vertex, int weight) {
         this.vertex = vertex;
