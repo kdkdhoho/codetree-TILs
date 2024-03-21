@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -32,7 +33,7 @@ public class Main {
         }
         dist[startVertex] = 0;
 
-        PriorityQueue<Element> pq = new PriorityQueue<>();
+        PriorityQueue<Element> pq = new PriorityQueue<>(Comparator.comparingInt(e -> e.distance));
         pq.add(new Element(startVertex, 0));
 
         while (!pq.isEmpty()) {
@@ -74,16 +75,11 @@ class Node {
     }
 }
 
-class Element implements Comparable<Element> {
+class Element {
     int vertex, distance;
 
     public Element(int vertex, int distance) {
         this.vertex = vertex;
         this.distance = distance;
-    }
-
-    @Override
-    public int compareTo(Element e) {
-        return this.distance - e.distance;   // dist 기준 오름차순 정렬
     }
 }
