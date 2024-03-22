@@ -9,39 +9,25 @@ public class Main {
 
     public static void main(String[] args) {
         s = sc.nextLine();
+        int n = s.length();
 
-        int[] arr = new int[s.length()];
-        for (int i = 0; i < s.length() - 1; i++) {
-            char c = s.charAt(i);
+        int[] R = new int[n];
+        for (int i = n - 2; i >= 0; i--) {
+            R[i] = R[i + 1];
 
-            if (c == '(' && c == s.charAt(i + 1)) {
-                openers.add(i);
-                continue;
-            }
-
-            if (c == ')' && c == s.charAt(i + 1)) {
-                closers.add(i);
+            if (s.charAt(i) == ')' && (s.charAt(i) == s.charAt(i + 1))) {
+                R[i]++;
             }
         }
 
         int cnt = 0;
-        for (int opener : openers) {
-            for (int closer : closers) {
-                if (opener < closer) {
-                    cnt++;
-                }
+        for (int i = 0; i < n - 1; i++) {
+            char c = s.charAt(i);
+
+            if (c == '(' && (s.charAt(i + 1) == c)) {
+                cnt += R[i];
             }
         }
         System.out.print(cnt);
-    }
-}
-
-class Element {
-    String type;
-    int index;
-
-    public Element(String type, int index) {
-        this.type = type;
-        this.index = index;
     }
 }
