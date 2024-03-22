@@ -29,22 +29,27 @@ public class Main {
         }
 
         int answer = -1;
-        for (int i = 0; i <= n - 2; i++) {
-            int nextIndex = getNextIndex(i);
-            int number = numbers[i];
-            HashSet<Integer> targetSet = R[nextIndex];
+        for (int i = 0; i <= n - 1; i++) {
+            int nextIndex = getNextIndex(i, k);
 
-            if (targetSet.contains(number)) {
-                answer = Math.max(answer, number);
+            if (R[nextIndex].contains(numbers[i])) {
+                if (nextIndex + 1 >= n) {
+                    answer = Math.max(answer, numbers[i]);
+                    continue;
+                }
+
+                if (!R[getNextIndex(i, k + 1)].contains(numbers[i])) {
+                    answer = Math.max(answer, numbers[i]);
+                }
             }
         }
         System.out.print(answer);
     }
     
-    private static int getNextIndex(int i) {
-        if (i + k >= n) {
+    private static int getNextIndex(int i, int next) {
+        if (i + next >= n) {
             return n - 1;
         }
-        return i + k;
+        return i + next;
     }
 }
