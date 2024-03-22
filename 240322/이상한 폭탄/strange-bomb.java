@@ -29,27 +29,15 @@ public class Main {
         }
 
         int answer = -1;
-        for (int i = 0; i <= n - 1; i++) {
-            int nextIndex = getNextIndex(i, k);
-
-            if (R[nextIndex].contains(numbers[i])) {
-                if (nextIndex + 1 >= n) {
+        for (int i = 0; i <= n - 2; i++) {
+            if (R[i + 1].contains(numbers[i])) {
+                if (i + k + 1 >= n) {
                     answer = Math.max(answer, numbers[i]);
-                    continue;
-                }
-
-                if (!R[getNextIndex(i, k + 1)].contains(numbers[i])) {
+                } else if (!R[i + k + 1].contains(numbers[i])) {
                     answer = Math.max(answer, numbers[i]);
                 }
             }
         }
         System.out.print(answer);
-    }
-    
-    private static int getNextIndex(int i, int next) {
-        if (i + next >= n) {
-            return n - 1;
-        }
-        return i + next;
     }
 }
