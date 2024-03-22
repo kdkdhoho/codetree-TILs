@@ -1,9 +1,3 @@
-/**
-폭탄 N개가 있다.
-폭탄에는 각자 번호가 있고 같은 번호가 부여된 폭탄끼리 거리가 K안에 있다면 폭발한다.
-
-N, K, 그리고 폭탄을 나열할 순서가 주어졌을 때, 폭발 할 폭탄 중에 부여된 번호가 가장 큰 번호를 출력하시오.
-*/
 import java.util.*;
 
 public class Main {
@@ -17,7 +11,7 @@ public class Main {
         k = sc.nextInt();
         
         numbers = new int[n];
-        for (int i =0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             numbers[i] = sc.nextInt();
         }
 
@@ -25,15 +19,22 @@ public class Main {
         for (int i = 0; i < n; i++) {
             R[i] = new HashSet<>();
         }
-        for (int i = n - 1; i >= 0; i--) {
-            HashSet<Integer> set = R[i];
-            set.add(numbers[i]);
+        R[n - 1].add(numbers[n - 1]);
+
+        for (int i = n - 2; i >= 0; i--) {
+            HashSet<Integer> beforeSet = R[i + 1];
+            HashSet<Integer> newSet = new HashSet(beforeSet);
+            newSet.add(numbers[i]);
+            R[i] = newSet;
         }
 
         int answer = -1;
         for (int i = 0; i <= n - 1 - k; i++) {
-            if (R[i + k].contains(numbers[i])) {
-                answer = Math.max(answer, numbers[i]);
+            int number = numbers[i];
+            HashSet<Integer> targetSet = R[i + k];
+
+            if (targetSet.contains(number)) {
+                answer = Math.max(answer, number);
             }
         }
         System.out.print(answer);
