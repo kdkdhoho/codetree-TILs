@@ -29,14 +29,22 @@ public class Main {
         }
 
         int answer = -1;
-        for (int i = 0; i <= n - 1 - k; i++) {
+        for (int i = 0; i <= n - 2; i++) {
+            int nextIndex = getNextIndex(i);
             int number = numbers[i];
-            HashSet<Integer> targetSet = R[i + k];
+            HashSet<Integer> targetSet = R[nextIndex];
 
             if (targetSet.contains(number)) {
                 answer = Math.max(answer, number);
             }
         }
         System.out.print(answer);
+    }
+    
+    private static int getNextIndex(int i) {
+        if (i + k >= n) {
+            return n - 1;
+        }
+        return i + k;
     }
 }
