@@ -21,11 +21,11 @@ public class Main {
         }
 
         int cnt = 0;
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < n - 2; i++) {
             char c = s.charAt(i);
 
             if (c == '(' && (s.charAt(i + 1) == c)) {
-                cnt += R[i];
+                cnt += R[i + 2];
             }
         }
         System.out.print(cnt);
