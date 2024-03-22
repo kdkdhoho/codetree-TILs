@@ -13,12 +13,12 @@ public class Main {
         for (int i = n - 2; i >= 0; i--) {
             R[i] = R[i + 1];
 
-            if (s.charAt(i) == ')' && (s.charAt(i) == s.charAt(i + 1))) {
+            if (s.charAt(i) == ')' && s.charAt(i + 1) == ')') {
                 R[i]++;
             }
         }
 
-        int cnt = 0;
+        long cnt = 0;
         for (int i = 0; i <= n - 4; i++) {
             char c = s.charAt(i);
 
