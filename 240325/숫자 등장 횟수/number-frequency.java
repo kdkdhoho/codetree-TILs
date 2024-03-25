@@ -3,6 +3,7 @@ import java.util.*;
 public class Main {
 
     private static final Scanner sc = new Scanner(System.in);
+    private static final StringBuilder answer = new StringBuilder();
     
     public static void main(String[] args) {
         int n = sc.nextInt();
@@ -15,12 +16,12 @@ public class Main {
 
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
-        
-        int a = sc.nextInt();
-        int b = sc.nextInt();
 
-        int resultA = map.getOrDefault(a, 0);
-        int resultB = map.getOrDefault(b, 0);
-        System.out.printf("%d %d", resultA, resultB);
+        for (int i = 0; i < m; i++) {
+            int num = sc.nextInt();
+            int result = map.getOrDefault(num, 0);
+            answer.append(result).append(" ");
+        }
+        System.out.print(answer);
     }
 }
