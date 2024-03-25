@@ -39,7 +39,9 @@ public class Main {
                 int c = C[i];
                 int d = D[j];
 
-                if (set.contains(-(c + d))) {
+                int target = -(c + d);
+
+                if (set.contains(target)) {
                     answer++;
                 }
             }
