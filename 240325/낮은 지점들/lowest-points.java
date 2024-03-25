@@ -28,7 +28,7 @@ public class Main {
             }
         }
 
-        int sum = 0;
+        long sum = 0;
         for (int y : map.values()) {
             sum += y;
         }
