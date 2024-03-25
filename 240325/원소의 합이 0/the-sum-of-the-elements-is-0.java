@@ -23,13 +23,14 @@ public class Main {
             D[i] = sc.nextInt();
         }
 
-        Set<Integer> set = new HashSet<>();
+        Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 int a = A[i];
                 int b = B[j];
 
-                set.add(a + b);
+                int sum = a + b;
+                map.put(sum, map.getOrDefault(sum, 0) + 1);
             }
         }
 
@@ -40,10 +41,8 @@ public class Main {
                 int d = D[j];
 
                 int target = -(c + d);
-
-                if (set.contains(target)) {
-                    answer++;
-                }
+                int cnt = map.getOrDefault(target, 0);
+                answer += cnt;
             }
         }
         System.out.print(answer);
