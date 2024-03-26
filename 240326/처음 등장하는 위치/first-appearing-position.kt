@@ -4,6 +4,8 @@ fun main() {
     val n = readLine()!!.toInt()
     val numbers = readLine()!!.split(" ").map { x -> x.toInt() }
 
+    println(numbers)
+
     val map: TreeMap<Int, Int> = TreeMap()
 
     var index = 1
