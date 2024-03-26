@@ -2,41 +2,42 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-        String[] nk = br.readLine().split(" ");
-        int n = Integer.parseInt(nk[0]);
-        Map<Integer, Integer> seats = new HashMap<>(); // K 자리에 V 사람이 앉아있다.
+        int n = sc.nextInt();
+
+        // i번 사람이 앉은 자리를 나타내는 배열을 초기화합니다.
+        int[] seats = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            seats.put(i, i);
+            seats[i] = i;
         }
 
-        Map<Integer, HashSet<Integer>> result = new TreeMap<>(); // K번 사람이 앉은 자리들
+        // i번 사람이 앉았던 자리들을 기록하는 TreeMap을 초기화합니다.
+        Map<Integer, HashSet<Integer>> result = new TreeMap<>();
         for (int i = 1; i <= n; i++) {
             HashSet<Integer> init = new HashSet<>();
             init.add(i);
             result.put(i, init);
         }
 
-        int k = Integer.parseInt(nk[1]);
-        int[][] commands = new int[k][2]; // k개의 명령들
+        // 자리 바꾸는 명령들을 입력받습니다.
+        int k = sc.nextInt();
+        int[][] commands = new int[k][2];
         for (int i = 0; i < k; i++) { // O(K)
-            String[] inputs = br.readLine().split(" ");
-            int a = Integer.parseInt(inputs[0]);
-            int b = Integer.parseInt(inputs[1]);
-            commands[i][0] = a;
-            commands[i][1] = b;
+            for (int j = 0; j < 2; j++) {
+                commands[i][j] = sc.nextInt();
+            }
         }
 
+        // 3K에 걸쳐 자리를 바꿉니다.
         for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < k; j++) { // O(K * 3)
-                int[] command = commands[j];
-                int seatA = command[0];
-                int seatB = command[1];
+            for (int j = 0; j < k; j++) { // O(K)
+                int seatA = commands[j][0];
+                int seatB = commands[j][1];
 
-                int personA = seats.get(seatA);
-                int personB = seats.get(seatB);
+                int personA = seats[seatA];
+                int personB = seats[seatB];
 
                 HashSet<Integer> seatedA = result.get(personA);
                 seatedA.add(seatB);
@@ -45,8 +46,8 @@ public class Main {
                 seatedB.add(seatA);
                 result.put(personB, seatedB);
 
-                seats.put(seatA, personB);
-                seats.put(seatB, personA);
+                seats[seatA] = personB;
+                seats[seatB] = personA;
             }
         }
 
