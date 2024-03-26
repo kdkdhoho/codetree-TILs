@@ -25,9 +25,10 @@ public class Main {
         int k = sc.nextInt();
         int[][] commands = new int[k][2];
         for (int i = 0; i < k; i++) { // O(K)
-            for (int j = 0; j < 2; j++) {
-                commands[i][j] = sc.nextInt();
-            }
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            commands[i][0] = a;
+            commands[i][1] = b;
         }
 
         // 3K에 걸쳐 자리를 바꿉니다.
