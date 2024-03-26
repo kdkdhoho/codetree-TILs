@@ -1,10 +1,9 @@
 import java.util.*
 
 fun main() {
-    val n = readLine()!!.toInt()
-    val numbers = readLine()!!.split(" ").map { x -> x.toInt() }
-
-    println(numbers)
+    val sc = Scanner(System.`in`)
+    val n = sc.nextLine().toInt()
+    val numbers = sc.nextLine().split(" ").map { x -> x.toInt() }
 
     val map: TreeMap<Int, Int> = TreeMap()
 
