@@ -2,15 +2,15 @@ import java.util.*
 
 fun main() {
     val sc = Scanner(System.`in`)
-    val n = sc.nextLine().toInt()
-    val numbers = sc.nextLine().split(" ").map { x -> x.toInt() }
+
+    val n = sc.nextInt()
 
     val map: TreeMap<Int, Int> = TreeMap()
-
-    var index = 1
-    for (number in numbers) {
-        if (!map.containsKey(number)) {
-            map.put(number, index++)
+    for (i in 1..n) {
+        val number = sc.nextInt()
+        when {
+            number !in map -> map[number] = i
+            else -> {}
         }
     }
 
