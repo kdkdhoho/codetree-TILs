@@ -2,7 +2,7 @@ import java.util.*
 
 fun main() {
     val n = readLine()!!.toInt()
-    val numbers = readLine()!!.split(" ").map { x -> x.toInt() }.toList()
+    val numbers = readLine()!!.split(" ").map { x -> x.toInt() }
 
     val map: TreeMap<Int, Int> = TreeMap()
 
