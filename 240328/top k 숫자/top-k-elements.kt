@@ -9,11 +9,12 @@ fun main() {
     for (i in 1..n) {
         treeSet.add(sc.nextInt())
     }
-
-    val result = treeSet.toList()
+    
+    val sortedSet = treeSet.descendingSet()
+    val result = sortedSet.toList()
     val answer = StringBuilder()
 
-    for (i in k downTo 1) {
+    for (i in 0..k-1) {
         answer.append(result[i]).append(" ")
     }
     print(answer)
