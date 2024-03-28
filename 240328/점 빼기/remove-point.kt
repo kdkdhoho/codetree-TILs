@@ -16,7 +16,7 @@ fun main() {
     val answer = StringBuilder()
     for (i in 1..m) {
         val k = sc.nextInt()
-        val result = points.ceiling(Point(k, k)) ?: Point(-1, -1)
+        val result = points.ceiling(Point(k, 1)) ?: Point(-1, -1)
         answer.append("${result.x} ${result.y}\n")
 
         if (result != Point(-1, -1)) {
