@@ -18,11 +18,28 @@ fun main() {
 
     var answer = Int.MAX_VALUE
     for (i in 0..n-1) {
-        val num = nums[i]
-        val target = num + m
-        val result = treeSet.ceiling(target) ?: continue
-        val diff = result - num
-        answer = Math.min(answer, diff)
+        val x = nums[i]
+
+        val x1 = treeSet.ceiling(x + m) ?: null
+        val x2 = treeSet.floor(x - m) ?: null
+
+        if (x1 != null && x2 != null) {
+            val gap1 = Math.abs(x1 - x)
+            val gap2 = Math.abs(x2 - x)
+            val result = Math.min(gap1, gap2)
+            answer = Math.min(answer, result)
+        } else if (x2 == null) {
+            val gap = Math.abs(x1!! - x)
+            answer = Math.min(answer, gap)
+        } else if (x1 == null) {
+            val gap = Math.abs(x2!! - x)
+            answer = Math.min(answer, gap)
+        }
     }
-    print(answer)
+
+    if (answer == Int.MAX_VALUE) {
+        print(-1)
+    } else {
+        print(answer)
+    }
 }
