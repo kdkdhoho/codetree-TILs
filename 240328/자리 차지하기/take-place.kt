@@ -11,17 +11,13 @@ fun main() {
         seats.add(seat)
     }
 
-    val xs = IntArray(n)
-    for (i in 0..n-1) {
-        xs[i] = sc.nextInt()
-    }
-
     var count = 0
-    for (x in xs) {
+    for (i in 1..n) {
+        val x = sc.nextInt()
+
         if (seats.floor(x) == null) {
             break
         }
-
         count++
         seats.remove(seats.floor(x))
     }
