@@ -28,12 +28,14 @@ fun main() {
             val gap2 = Math.abs(x2 - x)
             val result = Math.min(gap1, gap2)
             answer = Math.min(answer, result)
-        } else if (x2 == null) {
+        } else if (x1 != null && x2 == null) {
             val gap = Math.abs(x1!! - x)
             answer = Math.min(answer, gap)
-        } else if (x1 == null) {
+        } else if (x1 == null && x2 != null) {
             val gap = Math.abs(x2!! - x)
             answer = Math.min(answer, gap)
+        } else {
+            
         }
     }
 
