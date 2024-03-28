@@ -10,16 +10,25 @@ fun main() {
 
     for (i in 1..m) {
         val target = sc.nextInt()
-
-        val bigger = targets.ceiling(target) ?: n
-        val lower = targets.floor(target) ?: 0
-
-        val diff1 = bigger - target
-        val diff2 = target - lower
-
-        val max = Math.max(diff1, diff2)
-        println(max)
-        
         targets.add(target)
+
+        var max = 0
+        var x = 0
+        while (x < n) {
+            val nextX = targets.higher(x) ?: n
+
+            var diff = 0
+            if (x == 0 || nextX == n) {
+                diff = nextX - x
+            } else {
+                diff = nextX - x - 1
+            }
+
+            max = Math.max(max, diff)
+            
+            x = nextX
+        }
+
+        println(max)
     }
 }
