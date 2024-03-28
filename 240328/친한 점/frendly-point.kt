@@ -23,7 +23,7 @@ fun main() {
             println("-1 -1")
         } else {
             val result = treeSet.ceiling(point)
-            println(result)
+            println("${result.x} ${result.y}")
         }
     }
 }
