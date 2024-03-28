@@ -14,8 +14,6 @@ fun main() {
         treeSet.add(Point(x, y))
     }
 
-    println(treeSet)
-
     for (i in 1..m) {
         val x = sc.nextInt()
         val y = sc.nextInt()
