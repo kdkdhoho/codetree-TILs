@@ -16,12 +16,10 @@ fun main() {
         xs[i] = sc.nextInt()
     }
 
-    xs.sort()
-
     var count = 0
     for (x in xs) {
         if (seats.floor(x) == null) {
-            continue
+            break
         }
 
         count++
