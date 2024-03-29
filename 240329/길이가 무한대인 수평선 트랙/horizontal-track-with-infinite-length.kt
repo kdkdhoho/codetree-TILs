@@ -24,13 +24,12 @@ fun main() {
         val nextPerson = result.higher(person) ?: null
 
         if (nextPerson != null) {
-            if (nextPerson.getLast(t) == person.getLast(t)) {
-                person = nextPerson
-                continue
-            }
-
-            if (nextPerson.start > person.start) {
+            if (person.start < nextPerson.start && person.gap(nextPerson) <= 0) {
                 answer++
+            } else if (person.start < nextPerson.start && person.gap(nextPerson) < 0) {
+                if (person.getLast(t) < nextPerson.getLast(t)) {
+                    answer++
+                }
             }
         }
         person = nextPerson
@@ -43,6 +42,18 @@ data class Person(
     val start: Int,
     val speed: Int
 ): Comparable<Person> {
+
+    fun gap(o: Person): Int {
+        val d1 = this.getLast(1)
+        val d2 = this.getLast(2)
+        val gap1 = d2 - d1
+
+        val d3 = o.getLast(1)
+        val d4 = o.getLast(2)
+        val gap2 = d4 - d3
+
+        return gap1 - gap2
+    }
 
     fun getLast(time: Int): Int {
         return start + speed * time
