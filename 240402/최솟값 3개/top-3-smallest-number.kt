@@ -15,7 +15,7 @@ fun main() {
             answer.append(-1)
         } else {
             val minNumbers = IntArray(3)
-            var result = 1
+            var result = 1L
 
             for (j in 0..2) {
                 val minNumber = pq.poll()
@@ -26,8 +26,7 @@ fun main() {
             answer.append(result)
 
             for (j in 0..2) {
-                val minNumber: Int = minNumbers[j]
-                pq.add(minNumber)
+                pq.add(minNumbers[j])
             }
         }
 
