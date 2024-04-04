@@ -11,14 +11,24 @@ val peopleAmounts = arrayOfNulls<Int>(L)
 val answer = StringBuilder()
 
 fun main() {
-    for (i in 0..L-1) {
+    for (i in 0..L - 1) {
         belt.add(mutableMapOf())
     }
     sc.nextLine()
-    
+
+    var currentTime = 0
+
     for (i in 1..Q) {
         val split = sc.nextLine().split(" ")
         val command = split[0]
+        val t = split[1].toInt()
+
+        val gap = t - currentTime
+        for (i in 1..gap) {
+            rotate()
+            eatEveryBody()
+        }
+        currentTime = t
 
         when (command) {
             "100" -> {
@@ -36,6 +46,7 @@ fun main() {
                     eat(x, peopleNames[x]!!)
                 }
             }
+
             "200" -> {
                 val x = split[2].toInt()
                 val name = split[3]
@@ -46,16 +57,13 @@ fun main() {
 
                 eat(x, name)
             }
+
             "300" -> {
-                rotate()
-                eatEveryBody()
                 takePicture()
             }
-            else -> { }
-        }
 
-        rotate()
-        eatEveryBody()
+            else -> {}
+        }
     }
 
     print(answer)
@@ -66,7 +74,10 @@ fun rotate() {
     belt.addFirst(map)
 }
 
-fun eat(x: Int, name: String) {
+fun eat(
+    x: Int,
+    name: String
+) {
     val map: MutableMap<String, Int> = belt.get(x)
 
     if (map.containsKey(name)) {
@@ -83,14 +94,14 @@ fun eat(x: Int, name: String) {
         peopleAmounts[x] = remainPersonAmount
     }
 
-    if (peopleAmounts[x] ?: 0 <= 0) {
+    if ((peopleAmounts[x] ?: 0) <= 0) {
         peopleNames[x] = null
         peopleAmounts[x] = null
     }
 }
 
 fun eatEveryBody() {
-    for (x in 0..L-1) {
+    for (x in 0..L - 1) {
         val personName = peopleNames[x]
         if (personName != null) {
             eat(x, personName)
@@ -102,7 +113,7 @@ fun takePicture() {
     var sushiCount = 0
     var peopleCount = 0
 
-    for (x in 0..L-1) {
+    for (x in 0..L - 1) {
         val map = belt.get(x)
         for ((k, v) in map) {
             sushiCount += v
