@@ -25,22 +25,14 @@ fun main() {
         }
 
         while (i < j && sum >= s) {
+            answer = Math.min(answer, j - i + 1)
             sum -= arr[i]
             i++
         }
 
-        var length = 0
-        if (i == j) {
-            if (arr[i] == s) {
-                length = 1
-            } else {
-                length = 2
-            }
-        } else {
-            length = j - i + 1
+        if (i == j && arr[i] == s) {
+            answer = Math.min(answer, 1)
         }
-        answer = Math.min(answer, length)
-        
         j++
     }
 
