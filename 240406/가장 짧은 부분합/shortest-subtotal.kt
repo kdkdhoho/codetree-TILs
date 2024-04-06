@@ -11,29 +11,23 @@ fun main() {
         arr[i] = sc.nextInt()
     }
 
-    var i = 0
-    var j = 0
-    var sum = 0
     var answer = n
+    var j = 0
+    var sum = arr[0]
 
-    while (j < n) {
-        sum += arr[j]
+    for (i in 0..n-1) {
+        while (j + 1 < n && sum < s) {
+            sum += arr[j + 1]
+            j++
+        }
 
         if (sum < s) {
-            j++
-            continue
+            break
         }
 
-        while (i < j && sum >= s) {
-            answer = Math.min(answer, j - i + 1)
-            sum -= arr[i]
-            i++
-        }
+        answer = Math.min(answer, j - i + 1)
 
-        if (i == j && arr[i] == s) {
-            answer = Math.min(answer, 1)
-        }
-        j++
+        sum -= arr[i]
     }
 
     when (answer) {
