@@ -30,5 +30,8 @@ fun main() {
         sum -= arr[i]
     }
 
-    print(answer)
+    when (answer) {
+        n -> print(-1)
+        else -> print(answer)
+    }
 }
