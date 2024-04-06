@@ -17,8 +17,8 @@ fun main() {
 
     for (i in 1..n) {
         while (j + 1 <= n && sum < s) {
-            sum += arr[j + 1]
             j++
+            sum += arr[j]
         }
 
         if (sum < s) {
