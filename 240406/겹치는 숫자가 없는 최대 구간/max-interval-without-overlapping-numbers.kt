@@ -15,25 +15,31 @@ fun main() {
     var answer = 0
     val set = hashSetOf<Int>()
 
-    while (j < n) {
+    while (true) {
         if (!set.contains(arr[j])) {
             set.add(arr[j])
             j++
             continue
         }
 
+        answer = Math.max(answer, (j-1)-i+1)
         while (true) {
             if (i >= j || !set.contains(arr[j])) {
                 break
             }
 
-            answer = Math.max(answer, (j-1) - i + 1)
-
             set.remove(arr[i])
             i++
         }
+
         answer = Math.max(answer, j - i + 1)
+        
         j++
+        if (j >= n) {
+            break
+        } else {
+            set.add(arr[j])
+        }
     }
 
     print(answer)
