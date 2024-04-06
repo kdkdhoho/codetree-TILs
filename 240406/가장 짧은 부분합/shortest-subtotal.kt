@@ -4,21 +4,21 @@ val sc = Scanner(System.`in`)
 
 val n = sc.nextInt()
 val s = sc.nextInt()
-val arr = IntArray(n)
+val arr = IntArray(n + 1)
 
 fun main() {
-    for (i in 0..n-1) {
+    for (i in 1..n) {
         arr[i] = sc.nextInt()
     }
 
     var answer = n
     var j = 0
-    var sum = arr[0]
+    var sum = 0
 
-    for (i in 0..n-1) {
-        while (j + 1 < n && sum < s) {
-            sum += arr[j + 1]
+    for (i in 1..n) {
+        while (j + 1 <= n && sum < s) {
             j++
+            sum += arr[j]
         }
 
         if (sum < s) {
@@ -30,8 +30,5 @@ fun main() {
         sum -= arr[i]
     }
 
-    when (answer) {
-        n -> print(-1)
-        else -> print(answer)
-    }
+    print(answer)
 }
