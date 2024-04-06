@@ -29,10 +29,18 @@ fun main() {
             i++
         }
 
-        when {
-            i == j -> answer = Math.min(answer, 2)
-            else -> answer = Math.min(answer, j - i + 1)
+        var length = 0
+        if (i == j) {
+            if (arr[i] == s) {
+                length = 1
+            } else {
+                length = 2
+            }
+        } else {
+            length = j - i + 1
         }
+        answer = Math.min(answer, length)
+        
         j++
     }
 
