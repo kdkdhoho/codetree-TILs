@@ -20,6 +20,8 @@ fun main() {
         }
     }
 
+    // println("emptyNumber=$emptyNumber")
+
     for (i in k+1..n) { // O(K)
         val s = i - k + 1
 
@@ -33,8 +35,10 @@ fun main() {
         }
     }
 
+    // println("count=${count.contentToString()}")
+
     var answer = Int.MAX_VALUE
-    for (i in 1..n) {
+    for (i in k..n) {
         answer = Math.min(answer, count[i])
     }
     print(answer)
