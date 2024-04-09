@@ -30,7 +30,12 @@ fun main() {
         val s = sc.nextInt()
         val e = sc.nextInt()
 
-        val cnt = count[e] - count[s - 1]
+        var cnt = 0
+        if (s == 0) {
+            cnt = count[e]
+        } else {
+            cnt = count[e] - count[s - 1]
+        }
         answer.append(cnt).append("\n")
     }
     print(answer)
