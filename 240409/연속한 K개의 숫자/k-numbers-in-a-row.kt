@@ -5,7 +5,6 @@ val sc = Scanner(System.`in`)
 val n = sc.nextInt()
 val k = sc.nextInt()
 val b = sc.nextInt()
-val arr = IntArray(n + 1)
 val emptyNumber = hashSetOf<Int>()
 val count = IntArray(n + 1)
 
@@ -26,10 +25,10 @@ fun main() {
 
         count[i] = count[i - 1]
         
-        if (emptyNumber.contains(arr[s - 1])) {
+        if (emptyNumber.contains(s - 1)) {
             count[i]--
         }
-        if (emptyNumber.contains(arr[i])) {
+        if (emptyNumber.contains(i)) {
             count[i]++
         }
     }
