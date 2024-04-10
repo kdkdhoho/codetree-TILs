@@ -1,16 +1,17 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int k = sc.nextInt();
-        sc.nextLine();
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] inputs = br.readLine().split(" ");
+        int n = Integer.parseInt(inputs[0]);
+        int m = Integer.parseInt(inputs[1]);
+        int k = Integer.parseInt(inputs[2]);
 
         char[][] arr = new char[n + 1][m + 1];
         for (int i = 1; i <= n; i++) { // O(N)
-            String row = sc.nextLine();
+            String row = br.readLine();
             for (int j = 0; j < row.length(); j++) { // O(M)
                 char c = row.charAt(j);
                 arr[i][j + 1] = c;
@@ -40,7 +41,7 @@ public class Main {
 
         StringBuilder answer = new StringBuilder();
         for (int i = 0; i < k; i++) { // O(10^5)
-            String[] split = sc.nextLine().split(" ");
+            String[] split = br.readLine().split(" ");
             int r1 = Integer.parseInt(split[0]);
             int c1 = Integer.parseInt(split[1]);
             int r2 = Integer.parseInt(split[2]);
