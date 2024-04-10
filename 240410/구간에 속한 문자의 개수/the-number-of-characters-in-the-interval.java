@@ -19,14 +19,14 @@ public class Main {
 
         int[][][] pre = new int[n + 1][m + 1][3];
         for (int i = 0; i <= n; i++) {
-            for (int j = 0; j <= n; j++) {
+            for (int j = 0; j <= m; j++) {
                 pre[i][j] = new int[3];
             }
         }
 
         // 누적 합 배열 생성
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= n; j++) {
+            for (int j = 1; j <= m; j++) {
                 pre[i][j] = sub(add(pre[i - 1][j], pre[i][j - 1]), pre[i - 1][j - 1]);
                 if (arr[i][j] == 'a') {
                     pre[i][j][0]++;
