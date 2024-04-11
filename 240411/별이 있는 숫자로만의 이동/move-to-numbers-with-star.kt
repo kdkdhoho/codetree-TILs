@@ -22,8 +22,8 @@ fun main() {
 
     var answer = 0
     for (r in 1..n) {
-        for (c in 1..n) {
-            val sum = getTotalSum(r, c)
+        for (c in 1..n) { // O(N^2)
+            val sum = getTotalSum(r, c) // O(K)
             answer = Math.max(answer, sum)
         }
     }
@@ -34,13 +34,17 @@ fun getTotalSum(
     r: Int,
     c: Int
 ): Int {
-    var result = getSum(r - k, c - k, r + k, c + k)
+    val r1 = if (r - k < 1) 1 else r - k
+    val c1 = if (c - k < 1) 1 else c - k
+    val r2 = if (r + k > n) n else r + k
+    val c2 = if (c + k > n) n else c + k
+    var result = getSum(r1, c1, r2, c2)
 
-    for (i in 0..k - 1) {
-        result -= getSum(r - k + i, c + 1 + i, r - k + i, c + k) // 1사분면
-        result -= getSum(r - k + i, c - k, r - k + i, c - 1 - i) // 2사분면
-        result -= getSum(r + k - i, c - k, r + k - i, c - 1 - i) // 3사분면
-        result -= getSum(r + k - i, c + 1 + i, r + k - i, c + k) // 4사분면
+    for (i in 0..k-1) { // O(K)
+        result -= getSum(r-k+i, c+1+i, r-k+i, c+k) // 1사분면
+        result -= getSum(r-k+i, c-k, r-k+i, c-1-i) // 2사분면
+        result -= getSum(r+k-i, c-k, r+k-i, c-1-i) // 3사분면
+        result -= getSum(r+k-i, c+1+i, r+k-i, c+k) // 4사분면
     }
 
     return result
