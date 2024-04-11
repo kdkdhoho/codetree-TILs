@@ -21,10 +21,10 @@ fun main() {
     }
 
     var answer = 0
-    for (r in 1..n) {
-        for (c in 1..n) {
+    for (r in 1+k..n-k+1) {
+        for (c in 1..n-k+1) {
             val sum = getTotalSum(r, c)
-            answer = Math.max(answer, sum)        
+            answer = Math.max(answer, sum)
         }
     }
     print(answer)
@@ -33,10 +33,10 @@ fun main() {
 fun getTotalSum(r: Int, c: Int): Int {
     var result = getSum(r-k, c-k, r+k, c+k)
     for (i in 0..k-1) {
-        result -= getSum(r+k-i, c+1+i, r+k-i, c+k)
-        result -= getSum(r+1+i, c-k, r+1+i, c-k+i)
-        result -= getSum(r-1-i, c-k, r-1-i, c-k+i)
-        result -= getSum(r-k+i, c+1+i, r-k+i, c+k)
+        result -= getSum(r-k+i, c+1+i, r-k+i, c+k) // 1사분면
+        result -= getSum(r-1-i, c-k, r-1-i, c-k+i) // 2사분면
+        result -= getSum(r+1+i, c-k, r+1+i, c-k+i) // 3사분면
+        result -= getSum(r+k-i, c+1+i, r+k-i, c+k) // 4사분면
     }
     return result
 }
@@ -49,5 +49,5 @@ fun getSum(r1: Int, c1: Int, r2: Int, c2: Int): Int {
 }
 
 fun inArray(i: Int, j: Int): Boolean {
-    return i > 0 && i <= n && j > 0 && j <= n
+    return i >= 1 && i <= n && j >= 1 && j <= n
 }
