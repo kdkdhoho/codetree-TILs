@@ -33,6 +33,11 @@ fun main() {
         val a = sc.nextInt()
         val b = sc.nextInt()
 
+        if (treeMap.ceilingKey(a) == null) {
+            answer.append(0).append("\n")
+            continue
+        }
+
         val start = treeMap.get(treeMap.ceilingKey(a)) ?: 0
         val end = treeMap.get(treeMap.floorKey(b)) ?: 0
 
