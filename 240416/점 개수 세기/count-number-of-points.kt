@@ -26,7 +26,7 @@ fun main() {
         val newA = treeSet.ceiling(a) ?: 0
         val newB = treeSet.floor(b) ?: 0
 
-        if (newA == 0 || newA > newB) {
+        if (newA == 0) {
             answer.append(0).append("\n")
             continue
         }
