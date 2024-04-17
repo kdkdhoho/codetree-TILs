@@ -14,8 +14,8 @@ fun main() {
     for (i in 1..n) {
         val input2 = reader.readLine().split(" ")
         val point = Point(input2[0].toInt(), input2[1].toInt())
-        treeSet.add(point)
-    }
+        treeSet.add(point) // O(logN)
+    } // O(logN)
 
     for (i in 1..q) { // O(Q)
         val input3 = reader.readLine().split(" ")
@@ -43,13 +43,13 @@ fun main() {
                     currentPoint = treeSet.higher(currentPoint) ?: break // O(logN)
                 }
 
-                if (currentPoint != null && y1 <= currentPoint.y && currentPoint.y <= y2) {
+                if (currentPoint != null && currentPoint.y in y1..y2) {
                     count++
                 }
                 answer.append(count).append("\n")
             }
         }
-    }
+    } // O(QlogN + QNlogN)
 
     print(answer)
 }
