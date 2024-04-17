@@ -1,23 +1,28 @@
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.util.*
 
-val sc = Scanner(System.`in`)
+val reader = BufferedReader(InputStreamReader(System.`in`))
 
-val n = sc.nextInt()
-val q = sc.nextInt()
+val input1 = reader.readLine().split(" ")
+val n = input1[0].toInt()
+val q = input1[1].toInt()
 val treeSet = TreeSet<Point>()
 val answer = StringBuilder()
 
 fun main() {
     for (i in 1..n) {
-        val point = Point(sc.nextInt(), sc.nextInt())
+        val input2 = reader.readLine().split(" ")
+        val point = Point(input2[0].toInt(), input2[1].toInt())
         treeSet.add(point)
     }
 
     for (i in 1..q) { // O(Q)
-        val x1 = sc.nextInt()
-        val y1 = sc.nextInt()
-        val x2 = sc.nextInt()
-        val y2 = sc.nextInt()
+        val input3 = reader.readLine().split(" ")
+        val x1 = input3[0].toInt()
+        val y1 = input3[1].toInt()
+        val x2 = input3[2].toInt()
+        val y2 = input3[3].toInt()
         val p1 = Point(x1, y1)
         val p2 = Point(x2, y2)
 
@@ -27,15 +32,15 @@ fun main() {
         when {
             startPoint == null || endPoint == null -> answer.append(0).append("\n")
             startPoint.x > endPoint.x -> answer.append(0).append("\n")
-            
+
             else -> {
                 var count = 0
                 var currentPoint: Point = startPoint
                 while (currentPoint != endPoint) { // O(N)
-                    if (y1 <= currentPoint.y && currentPoint.y <= y2) {
+                    if (currentPoint.y in y1..y2) {
                         count++
                     }
-                    currentPoint = treeSet.higher(currentPoint) ?: break
+                    currentPoint = treeSet.higher(currentPoint) ?: break // O(logN)
                 }
 
                 if (currentPoint != null && y1 <= currentPoint.y && currentPoint.y <= y2) {
@@ -52,8 +57,7 @@ fun main() {
 data class Point(
     val x: Int,
     val y: Int
-): Comparable<Point> {
-    
+) : Comparable<Point> {
     override fun compareTo(o: Point): Int {
         if (this.x == o.x) {
             return this.y - o.y
