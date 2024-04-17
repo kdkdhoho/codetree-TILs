@@ -42,10 +42,10 @@ fun main() {
                 if (y1 <= currentPoint.y && currentPoint.y <= y2) {
                     count++
                 }
-                currentPoint = treeSet.higher(currentPoint)
+                currentPoint = treeSet.higher(currentPoint) ?: break
             }
 
-            if (y1 <= currentPoint.y && currentPoint.y <= y2) {
+            if (currentPoint != null && y1 <= currentPoint.y && currentPoint.y <= y2) {
                 count++
             }
             
