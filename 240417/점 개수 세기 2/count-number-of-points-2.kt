@@ -26,7 +26,8 @@ fun main() {
 
         when {
             startPoint == null || endPoint == null -> answer.append(0).append("\n")
-
+            startPoint.x > endPoint.x -> answer.append(0).append("\n")
+            
             else -> {
                 var count = 0
                 var currentPoint: Point = startPoint
@@ -40,7 +41,6 @@ fun main() {
                 if (currentPoint != null && y1 <= currentPoint.y && currentPoint.y <= y2) {
                     count++
                 }
-                
                 answer.append(count).append("\n")
             }
         }
