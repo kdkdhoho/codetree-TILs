@@ -32,13 +32,13 @@ fun main() {
         endPointValue = treeSet.floor(endPointValue) ?: null
         
         when {
-            startPointValue == null -> answer.append(0)
+            startPointValue == null || endPointValue == null -> answer.append(0)
             else -> {
                 val startPointNumber = hashMap.get(startPointValue)!!
                 val endPointNumber = hashMap.get(endPointValue)!!
 
                 when {
-                    startPointNumber > endPointNumber -> answer.append(0)
+                    // startPointNumber > endPointNumber -> answer.append(0)
                     else -> {
                         val count = endPointNumber - startPointNumber + 1
                         answer.append(count)
