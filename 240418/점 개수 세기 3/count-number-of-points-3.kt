@@ -13,38 +13,29 @@ val answer = StringBuilder()
 
 fun main() {
     val input2 = reader.readLine().split(" ")
-    for (i in 0..n-1) {
-        treeSet.add(input2[i].toInt())
-    }
+    for (i in 0..n-1) { // O(N)
+        treeSet.add(input2[i].toInt()) // O(logN)
+    } // O(NlogN)
 
     var number = 1
-    for (x in treeSet) {
-        hashMap.put(x, number)
+    for (x in treeSet) { // O(N)
+        hashMap.put(x, number) // O(1)
         number += 1
     }
 
-    for (i in 1..q) {
+    for (i in 1..q) { // O(Q)
         val input3 = reader.readLine().split(" ")
-        val a = input3[0].toInt()
-        val b = input3[1].toInt()
+        val startPointValue = input3[0].toInt()
+        val endPointValue = input3[1].toInt()
 
-        val startPointValue = treeSet.ceiling(a) ?: null
-        val endPointValue = treeSet.floor(b) ?: null
+        val startPointNumber = hashMap.get(startPointValue)!! // O(1)
+        val endPointNumber = hashMap.get(endPointValue)!! // O(1)
+
         when {
-            startPointValue == null || endPointValue == null -> answer.append(0)
-
+            startPointNumber > endPointNumber -> answer.append(0)
             else -> {
-                val startPointNumber = hashMap.get(startPointValue)!!
-                val endPointNumber = hashMap.get(endPointValue)!!
-
-                when {
-                    startPointNumber > endPointNumber -> answer.append(0)
-
-                    else -> {
-                        val count = endPointNumber - startPointNumber + 1
-                        answer.append(count)
-                    }
-                }
+                val count = endPointNumber - startPointNumber + 1
+                answer.append(count)
             }
         }
         answer.append("\n")
