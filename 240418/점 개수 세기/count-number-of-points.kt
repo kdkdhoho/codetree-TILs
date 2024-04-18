@@ -33,7 +33,6 @@ fun main() {
         
         when {
             startPointValue == null || endPointValue == null -> answer.append(0)
-            
             else -> {
                 val startPointNumber = hashMap.get(startPointValue)!!
                 val endPointNumber = hashMap.get(endPointValue)!!
@@ -47,7 +46,6 @@ fun main() {
                 }
             }
         }
-        
         answer.append("\n")
     }
 
