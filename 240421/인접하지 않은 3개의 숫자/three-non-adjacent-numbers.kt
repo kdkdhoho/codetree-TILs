@@ -1,10 +1,13 @@
-import java.io.*
+import java.util.*
 
-val br = BufferedReader(InputStreamReader(System.`in`))
+val sc = Scanner(System.`in`)
 
 fun main() {
-    val n = br.readLine().toInt()
-    val nums = br.readLine().split(" ").map { it.toInt() }
+    val n = sc.nextInt()
+    val nums = IntArray(n)
+    for (i in 0..n-1) {
+        nums[i] = sc.nextInt()
+    }
 
     if (n == 5) {
         print(nums[0] + nums[2] + nums[4])
