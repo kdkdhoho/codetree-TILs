@@ -20,7 +20,7 @@ fun main() {
     dp[2].add(nums[0])
     dp[2].add(nums[2])
 
-    println(dp.contentToString())
+    // println(dp.contentToString())
 
     for (i in 3..n-1) {
         val caseA = PriorityQueue(dp[i - 3])
@@ -39,10 +39,10 @@ fun main() {
         // println("sumOfCaseA=$sumOfCaseA sumOfCaseB=$sumOfCaseB sumOfCaseC=$sumOfCaseC")
         // println("maxSum=$maxSum")
 
-        when {
-            maxSum == sumOfCaseC && caseC.size == 3 -> dp[i] = caseC
-            maxSum == sumOfCaseB && caseB.size == 3 -> dp[i] = caseB
-            maxSum == sumOfCaseA && caseA.size == 3 -> dp[i] = caseA
+        when (maxSum) {
+            sumOfCaseC -> dp[i] = caseC
+            sumOfCaseB -> dp[i] = caseB
+            sumOfCaseA -> dp[i] = caseA
             else -> { }
         }
         // println(dp.contentToString())
