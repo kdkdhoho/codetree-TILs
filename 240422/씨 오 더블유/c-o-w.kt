@@ -2,8 +2,7 @@ import java.util.*
 
 fun main() {
     val sc = Scanner(System.`in`)
-    val n = sc.nextInt()
-    sc.nextLine()
+    val n = sc.nextLine().toInt()
     val s = sc.nextLine()
 
     val L = IntArray(n)
@@ -28,7 +27,7 @@ fun main() {
         }
     }
 
-    var answer = 0
+    var answer = 0L
     for (i in 1..n-2) {
         if (s[i] == 'O') {
             answer += L[i - 1] * R[i + 1]
