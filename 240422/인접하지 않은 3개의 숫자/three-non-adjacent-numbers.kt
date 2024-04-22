@@ -8,6 +8,11 @@ fun main() {
     for (i in 0..n-1) {
         nums[i] = sc.nextInt()
     }
+    
+    if (n == 5) {
+        print(nums[0] + nums[2] + nums[4])
+        return
+    }
 
     val dp = Array(n) { PriorityQueue<Int>() }
     dp[0].add(nums[0])
@@ -15,25 +20,32 @@ fun main() {
     dp[2].add(nums[0])
     dp[2].add(nums[2])
 
+    println(dp.contentToString())
+
     for (i in 3..n-1) {
         val caseA = PriorityQueue(dp[i - 3])
         val caseB = PriorityQueue(dp[i - 2])
         val caseC = PriorityQueue(dp[i - 1])
-
         caseA.add(nums[i])
         caseB.add(nums[i])
 
         val sumOfCaseA = getSum(caseA)
         val sumOfCaseB = getSum(caseB)
         val sumOfCaseC = getSum(caseC)
+
         val maxSum = Math.max(sumOfCaseA, Math.max(sumOfCaseB, sumOfCaseC))
 
-        when (maxSum) {
-            sumOfCaseC -> dp[i] = caseC
-            sumOfCaseB -> dp[i] = caseB
-            sumOfCaseA -> dp[i] = caseA
+        // println("caseA=$caseA caseB=$caseB caseC=$caseC")
+        // println("sumOfCaseA=$sumOfCaseA sumOfCaseB=$sumOfCaseB sumOfCaseC=$sumOfCaseC")
+        // println("maxSum=$maxSum")
+
+        when {
+            maxSum == sumOfCaseC && caseC.size == 3 -> dp[i] = caseC
+            maxSum == sumOfCaseB && caseB.size == 3 -> dp[i] = caseB
+            maxSum == sumOfCaseA && caseA.size == 3 -> dp[i] = caseA
             else -> { }
         }
+        // println(dp.contentToString())
     }
 
     var answer = 0
