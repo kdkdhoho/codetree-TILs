@@ -10,11 +10,9 @@ fun main() {
         pq.add(Point(sc.nextInt(), sc.nextInt()))
     }
 
-    // println(pq)
-
     var answer = 1
     var beforePoint = pq.poll()
-    var isFirstCollision = false
+    var isFirstCollision = true
 
     while (!pq.isEmpty()) {
         val point = pq.poll()
@@ -23,15 +21,15 @@ fun main() {
         // println("point=$point")
         
         if (beforePoint.isCollision(point)) {
+            isFirstCollision = false
+
             // println("Collision !! ")
-            if (!isFirstCollision) {
+            if (isFirstCollision) {
                 // println("첫 번째 충돌")
                 answer -= 1
             } else {
                 // println("첫 번째 충돌 아님")
-                // Nothing
             }
-            isFirstCollision = false
         } else {
             answer += 1
         }
@@ -54,13 +52,10 @@ data class Point(
 ): Comparable<Point> {
     
     fun isCollision(o: Point): Boolean {
-        if (o.x1 < this.x1 && o.x2 >= this.x2) {
+        if (o.x1 < this.x1 && o.x2 > this.x2) {
             return true
         }
-        if (this.x1 == o.x1 || this.x2 == o.x2) {
-            return true
-        }
-        if (o.x1 > this.x1 && o.x2 <= this.x2) {
+        if (o.x1 > this.x1 && o.x2 < this.x2) {
             return true
         }
         return false
