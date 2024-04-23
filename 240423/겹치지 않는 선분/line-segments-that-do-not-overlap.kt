@@ -17,26 +17,16 @@ fun main() {
     while (!pq.isEmpty()) {
         val point = pq.poll()
         
-        // println("beforePoint=$beforePoint")
-        // println("point=$point")
-        
         if (beforePoint.isCollision(point)) {
-            // println("Collision !! ")
             if (isFirstCollision) {
-                // println("첫 번째 충돌")
-                answer -= 1
-            } else {
-                // println("첫 번째 충돌 아님")
+                answer--
             }
             isFirstCollision = false
         } else {
-            answer += 1
+            answer++
         }
 
-        // println("answer=$answer")
-
-        if (point.x2 > beforePoint.x2) {
-            // println("point.x2 > beforePoint.x2")
+        if (point.x2 >= beforePoint.x2) {
             beforePoint = point
             isFirstCollision = true
         }
