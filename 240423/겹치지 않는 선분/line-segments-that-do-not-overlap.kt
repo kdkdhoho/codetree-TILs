@@ -4,34 +4,36 @@ val sc = Scanner(System.`in`)
 
 fun main() {
     val n = sc.nextInt()
-    val pq = PriorityQueue<Point>()
+    val points = mutableListOf<Point>()
+
+    if (n == 1) {
+        print(1)
+        return
+    }
 
     for (i in 1..n) {
-        pq.add(Point(sc.nextInt(), sc.nextInt()))
+        points.add(Point(sc.nextInt(), sc.nextInt()))
+    }
+    points.sort()
+
+    val L = IntArray(n)
+    L[0] = points.first().x2
+    for (i in 1..points.size-1) {
+        L[i] = Math.max(L[i - 1], points[i].x2)
     }
 
-    var answer = 1
-    var beforePoint = pq.poll()
-    var isFirstCollision = true
+    val R = IntArray(n)
+    R[n - 1] = points.last().x2
+    for (i in n-2 downTo 0) {
+        R[i] = Math.min(R[i + 1], points[i].x2)
+    }
 
-    while (!pq.isEmpty()) {
-        val point = pq.poll()
-        
-        if (beforePoint.isCollision(point)) {
-            if (isFirstCollision) {
-                answer--
-            }
-            isFirstCollision = false
-        } else {
+    var answer = 0
+    for (i in 0..n-1) {
+        if (L[i] == R[i]) {
             answer++
         }
-
-        if (point.x2 >= beforePoint.x2) {
-            beforePoint = point
-            isFirstCollision = true
-        }
     }
-
     print(answer)
 }
 
@@ -39,16 +41,6 @@ data class Point(
     val x1: Int,
     val x2: Int
 ): Comparable<Point> {
-    
-    fun isCollision(o: Point): Boolean {
-        if (o.x1 < this.x1 && o.x2 > this.x2) {
-            return true
-        }
-        if (o.x1 > this.x1 && o.x2 < this.x2) {
-            return true
-        }
-        return false
-    }
 
     override fun compareTo(o: Point): Int {
         if (this.x1 == o.x1) {
