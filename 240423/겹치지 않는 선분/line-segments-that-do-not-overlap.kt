@@ -21,8 +21,6 @@ fun main() {
         // println("point=$point")
         
         if (beforePoint.isCollision(point)) {
-            isFirstCollision = false
-
             // println("Collision !! ")
             if (isFirstCollision) {
                 // println("첫 번째 충돌")
@@ -30,6 +28,7 @@ fun main() {
             } else {
                 // println("첫 번째 충돌 아님")
             }
+            isFirstCollision = false
         } else {
             answer += 1
         }
@@ -39,7 +38,7 @@ fun main() {
         if (point.x2 > beforePoint.x2) {
             // println("point.x2 > beforePoint.x2")
             beforePoint = point
-            isFirstCollision = false
+            isFirstCollision = true
         }
     }
 
