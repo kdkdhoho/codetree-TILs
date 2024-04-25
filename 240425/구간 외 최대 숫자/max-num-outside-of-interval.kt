@@ -7,7 +7,7 @@ fun main() {
     val input1 = br.readLine().split(" ")
     val n = input1[0].toInt()
     val q = input1[1].toInt()
-    val nums = br.readLine().split(" ").map { it.toInt() }
+    val nums = br.readLine().trim().split(" ").map { it.toInt() }
 
     val L = IntArray(n)
     L[0] = nums[0]
