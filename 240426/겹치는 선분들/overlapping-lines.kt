@@ -38,25 +38,16 @@ fun main() {
     var answer = 0
     var sum = 0
     var overlapStartX = 0
-    for (point in points) {
-        val x = point.x
-        val weight = point.weight
+    for (i in 0..points.size - 1) {
+        val x = points[i].x
+        val weight = points[i].weight
+
+        if (sum >= k) {
+            val length = x - points[i - 1].x
+            answer += length
+        }
 
         sum += weight
-
-        when (weight) {
-            +1 -> {
-                if (sum == k) {
-                    overlapStartX = x
-                }
-            }
-            else -> {
-                if (sum == k - 1) {
-                    val length = x - overlapStartX
-                    answer += length
-                }
-            }
-        }
     }
 
     print(answer)
