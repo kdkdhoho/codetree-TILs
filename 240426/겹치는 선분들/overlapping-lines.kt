@@ -1,66 +1,67 @@
 import java.util.*
-import kotlin.math.*
 
 val sc = Scanner(System.`in`)
 
 fun main() {
-    val input1 = sc.nextLine().split(" ")
-    val n = input1[0].toInt()
-    val k = input1[1].toInt()
+    val dd = sc.nextLine().split(" ")
+    val n = dd[0].toInt()
+    val k = dd[1].toInt()
     val points = mutableListOf<Point>()
 
     var startX = 0
     for (i in 1..n) {
-        val input = sc.nextLine().split(" ")
-        val dist = input[0].toInt()
-        val direction = input[1]
+        val d = sc.nextLine().split(" ")
+        val distance = d[0].toInt()
+        val direction = d[1]
 
-        var a = 0
-        var b = 0
         when (direction) {
             "L" -> {
-                a = startX - dist
-                b = startX
+                val a = startX - distance
+                val b = startX
+                points.add(Point(a, +1))
+                points.add(Point(b, -1))
+
                 startX = a
             }
             else -> {
-                a = startX
-                b = startX + dist
+                val a = startX
+                val b = startX + distance
+                points.add(Point(a, +1))
+                points.add(Point(b, -1))
+
                 startX = b
             }
         }
-        points.add(Point(a, +1))
-        points.add(Point(b, -1))
     }
     points.sort()
 
-    var answer = hashSetOf<Section>()
-    var overlapCount = 0
+    var answer = 0
+    var sum = 0
     var overlapStartX = 0
     for (point in points) {
         val x = point.x
         val weight = point.weight
 
         when (weight) {
-            -1 -> {
-                if (overlapCount >= k) {
-                    answer.add(Section(overlapStartX, x))
+            +1 -> {
+                sum += 1
+
+                if (sum >= k) {
+                    overlapStartX = x
                 }
             }
-            +1 -> {
-                overlapStartX = x
+            else -> {
+                sum -= 1
+
+                if (sum == k - 1) {
+                    val length = x - overlapStartX
+                    answer += length
+                }
             }
-            else -> { }
         }
-
-        overlapCount += weight
     }
 
-    var result = 0
-    for (section in answer) {
-        result += abs(section.a - section.b)
-    }
-    print(result)
+    print(answer)
 }
 
 data class Point(
@@ -68,14 +69,5 @@ data class Point(
     val weight: Int
 ): Comparable<Point> {
 
-    override fun compareTo(o: Point): Int {
-        return this.x - o.x
-    }
-}
-
-data class Section(
-    val a: Int,
-    val b: Int
-) {
-
+    override fun compareTo(o: Point) = this.x - o.x
 }
