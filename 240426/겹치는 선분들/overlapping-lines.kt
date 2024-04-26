@@ -42,17 +42,15 @@ fun main() {
         val x = point.x
         val weight = point.weight
 
+        sum += weight
+
         when (weight) {
             +1 -> {
-                sum += 1
-
-                if (sum >= k) {
+                if (sum == k) {
                     overlapStartX = x
                 }
             }
             else -> {
-                sum -= 1
-
                 if (sum == k - 1) {
                     val length = x - overlapStartX
                     answer += length
