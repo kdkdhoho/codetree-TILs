@@ -15,33 +15,30 @@ fun main() {
 
         points.add(Point(i, startTime, +1))
         points.add(Point(i, endTime, -1))
-    }
-    points.sort()
+    } // O(N)
+    points.sort() // O(NlogN)
 
     val pq = PriorityQueue<Int>()
     for (i in 1..n) {
         pq.add(i)
     }
-    val seat = IntArray(n + 1)
     val answer = IntArray(n + 1)
 
-    for (point in points) {
+    for (point in points) { // O(N)
         when (point.weight) {
             +1 -> {
-                val remainSeatNumber = pq.poll()
-                seat[point.personNumber] = remainSeatNumber
+                val remainSeatNumber = pq.poll() // O(logN)
                 answer[point.personNumber] = remainSeatNumber
             }
             -1 -> {
-                val seatNumber = seat[point.personNumber]
-                seat[point.personNumber] = 0
+                val seatNumber = answer[point.personNumber]
                 pq.add(seatNumber)
             }
         }
-    }
+    } // O(NlogN)
 
     val sb = StringBuilder()
-    for (i in 1..n) {
+    for (i in 1..n) { // O(N)
         sb.append(answer[i]).append(" ")
     }
     print(sb)
