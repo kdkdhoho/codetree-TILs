@@ -23,7 +23,7 @@ fun main() {
 
     val result = LongArray(n) // result[i]: i-1에서 i로 이동할 때, '에너지 x 최소 비용'
     for (i in 1..n-1) {
-        result[i] = (L[i - 1] * energy[i - 1]).toLong()
+        result[i] = L[i - 1].toLong() * energy[i - 1].toLong()
     }
 
     var answer = 0L
