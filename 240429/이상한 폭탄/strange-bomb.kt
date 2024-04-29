@@ -12,14 +12,14 @@ fun main() {
 
     val prefix = Array(n) { hashSetOf<Int>() }
     for (i in n-2 downTo 0) {
-        prefix[i].addAll(prefix[i + 1])
+        prefix[i] = HashSet(prefix[i + 1])
         if (i < n-1-k) {
             prefix[i].remove(arr[i + k + 1])
         }
         prefix[i].add(arr[i + 1])
     }
 
-    var answer = 0
+    var answer = -1
     for (i in 0..n-1-k) {
         if (prefix[i].contains(arr[i])) {
             answer = max(answer, arr[i])
