@@ -1,22 +1,21 @@
 fun main() {
     val s = readLine()!!
+    val n = s.length
 
-    var openCount = 0
-    var closeCount = 0
-    for (i in 0..s.length-2) {
-        when (s[i]) {
-            '(' -> {
-                if (s[i+1] == '(') {
-                    openCount++
-                }
-            }
-            ')' -> {
-                if (s[i+1] == ')') {
-                    closeCount++
-                }
-            }
+    val R = IntArray(n)
+    for (i in n-2 downTo 0) {
+        R[i] = R[i + 1]
+        if (s[i] == ')' && s[i + 1] == ')') {
+            R[i]++    
         }
     }
 
-    print(openCount * closeCount)
+    var answer = 0
+    for (i in 0..n-2) {
+        if (s[i] == '(' && s[i+1] == '(') {
+            answer += R[i]
+        }
+    }
+
+    print(answer)
 }
