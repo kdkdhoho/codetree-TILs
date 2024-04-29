@@ -10,18 +10,22 @@ fun main() {
         arr[i] = readLine()!!.toInt()
     }
 
-    val prefix = Array(n) { hashSetOf<Int>() }
+    val R = IntArray(n)
+    val hashMap = hashMapOf<Int, Int>()
+    hashMap.put(arr[n - 1], n - 1)
     for (i in n-2 downTo 0) {
-        prefix[i] = HashSet(prefix[i + 1])
-        if (i < n-1-k) {
-            prefix[i].remove(arr[i + k + 1])
+        if (hashMap.containsKey(arr[i])) {
+            R[i] = hashMap[arr[i]]!!
+        } else {
+            R[i] = -1
         }
-        prefix[i].add(arr[i + 1])
+
+        hashMap.put(arr[i], i)
     }
 
     var answer = -1
-    for (i in 0..n-1-k) {
-        if (prefix[i].contains(arr[i])) {
+    for (i in 0..n-2) {
+        if (R[i] > 0) {
             answer = max(answer, arr[i])
         }
     }
