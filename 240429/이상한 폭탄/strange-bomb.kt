@@ -1,19 +1,20 @@
-import kotlin.math.max
+import java.util.*
+import kotlin.math.*
+
+val sc = Scanner(System.`in`)
 
 fun main() {
-    val n_k = readLine()!!.split(" ")
-    val n = n_k[0].toInt()
-    val k = n_k[1].toInt()
+    val n = sc.nextInt()
+    val k = sc.nextInt()
 
     val arr = IntArray(n)
     for (i in 0..n-1) {
-        arr[i] = readLine()!!.toInt()
+        arr[i] = sc.nextInt()
     }
 
-    val R = IntArray(n)
     val hashMap = hashMapOf<Int, Int>()
-    hashMap.put(arr[n - 1], n - 1)
-    for (i in n-2 downTo 0) {
+    val R = IntArray(n)
+    for (i in n-1 downTo 0) {
         if (hashMap.containsKey(arr[i])) {
             R[i] = hashMap[arr[i]]!!
         } else {
@@ -23,9 +24,9 @@ fun main() {
         hashMap.put(arr[i], i)
     }
 
-    var answer = -1
-    for (i in 0..n-2) {
-        if (R[i] > 0) {
+    var answer = 0
+    for (i in 0..n-1) {
+        if (R[i] > 0 && abs(R[i] - i) <= k) {
             answer = max(answer, arr[i])
         }
     }
