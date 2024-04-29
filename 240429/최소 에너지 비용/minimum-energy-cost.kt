@@ -27,7 +27,7 @@ fun main() {
         result[i] = L[i - 1] * energy[i - 1]
     }
 
-    var answer = 0
+    var answer = 0L
     for (i in 0..n-1) {
         answer += result[i]
     }
