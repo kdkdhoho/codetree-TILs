@@ -10,7 +10,7 @@ fun main() {
         }
     }
 
-    var answer = 0
+    var answer = 0L
     for (i in 0..n-2) {
         if (s[i] == '(' && s[i+1] == '(') {
             answer += R[i]
