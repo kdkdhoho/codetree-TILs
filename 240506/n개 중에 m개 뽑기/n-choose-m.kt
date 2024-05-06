@@ -12,17 +12,18 @@ fun main() {
 }
 
 fun recursive(
-    startNum: Int,
-    selectedNums: MutableList<Int>
+    num: Int,
+    nums: MutableList<Int>
 ) {
-    if (selectedNums.size == m) {
-        answer.append(selectedNums.joinToString(" ")).append("\n")
+    println("num=$num nums=$nums")
+    if (nums.size == m) {
+        answer.append(nums.joinToString(" ")).append("\n")
         return
     }
 
-    for (num in startNum..n) {
-        selectedNums.add(num)
-        recursive(num + 1, selectedNums)
-        selectedNums.removeAt(selectedNums.size - 1)
+    for (num in num..n) {
+        nums.add(num)
+        recursive(num + 1, nums)
+        nums.removeAt(nums.size - 1)
     }
 }
