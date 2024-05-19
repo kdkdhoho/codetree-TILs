@@ -4,7 +4,7 @@ val nm = readLine()!!.trim().split(" ").map { it.toInt() }
 val n = nm[0]
 val m = nm[1]
 val arr = readLine()!!.trim().split(" ").map { it.toInt() }.toIntArray()
-val dp = Array(n) { IntArray(m) { -1 } }
+val dp = Array(n) { IntArray(10_000) { -1 } }
 
 fun main() {
     if (recursive(0, 0) > 0) {
