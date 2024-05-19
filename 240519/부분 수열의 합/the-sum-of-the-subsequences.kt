@@ -1,34 +1,36 @@
-import java.util.*
-import kotlin.system.*
+import kotlin.math.max
 
-val sc = Scanner(System.`in`)
-val n = sc.nextInt()
-val m = sc.nextInt()
-var arr = IntArray(n)
+val nm = readLine()!!.trim().split(" ").map { it.toInt() }
+val n = nm[0]
+val m = nm[1]
+val arr = readLine()!!.trim().split(" ").map { it.toInt() }.toIntArray()
+val dp = Array(n) { IntArray(10000 * 100) { -1 } }
 
 fun main() {
-    for (i in 0..n-1) {
-        arr[i] = sc.nextInt()
+    if (recursive(0, 0) > 0) {
+        print("Yes")
+    } else {
+        print("No")
     }
-    recursive(0, 0, 0)
-    print("No")
 }
 
 fun recursive(
-    index: Int,
-    count: Int,
+    i: Int,
     sum: Int
-) {
-    if (index == n) {
-        if (count > 0 && sum == m) {
-            print("Yes")
-            exitProcess(0)
+): Int {
+    if (i == n) {
+        if (sum == m) {
+            return 0
         }
-        return
+        return (-1e9).toInt()
+    }
+    if (dp[i][sum] != -1) {
+        return dp[i][sum]
     }
 
-    for (i in 0..n-1) {
-        recursive(index + 1, count + 1, sum + arr[i])
-        recursive(index + 1, count, sum)
-    }
+    var result = (-1e9).toInt()
+    result = max(result, recursive(i + 1, sum + arr[i]) + 1)
+    result = max(result, recursive(i + 1, sum) + 1)
+    dp[i][sum] = result
+    return result
 }
