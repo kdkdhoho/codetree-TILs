@@ -5,22 +5,15 @@ val arr = IntArray(n) { readLine()!!.toInt() }.sortedArray()
 var answer = 0
 
 fun main() {
-    var i = 0
-    var j = 1
-    var sum = arr[0] + arr[1]
+    for (i in 0..n - 1) {
+        for (j in i + 1..n - 1) {
+            if (arr[i] + arr[j] > k) {
+                break
+            }
 
-    while (i < j) {
-        if (sum <= k) {
-            answer++
-            sum -= arr[j]
-            j++
-            if (j >= n) break
-            sum += arr[j]
-        } else {
-            sum -= arr[i]
-            i++
-            if (i >= n) break
-            sum += arr[i]
+            if (arr[i] + arr[j] <= k) {
+                answer++
+            }
         }
     }
 
