@@ -16,10 +16,8 @@ fun main() {
             j++
             if (j >= n) break
             sum += arr[j]
-        }
-
-        if (sum >= s) {
-            answer = min(answer,(j - i + 1))
+        } else {
+            answer = min(answer, (j - i + 1))
             sum -= arr[i]
             i++
         }
