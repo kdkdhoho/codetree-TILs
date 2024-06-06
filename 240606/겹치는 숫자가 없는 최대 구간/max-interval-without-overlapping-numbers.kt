@@ -13,7 +13,10 @@ fun main() {
     while (i < n) {
         if (cnt[arr[j]] <= 1) {
             j++
-            if (j >= n) break
+            if (j >= n) {
+                answer = max(answer, (j - i))
+                break
+            }
             cnt[arr[j]]++
         }
 
@@ -24,8 +27,5 @@ fun main() {
         }
     }
 
-    if (answer == 0) {
-        answer = n
-    }
     print(answer)
 }
