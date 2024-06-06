@@ -1,5 +1,14 @@
 import kotlin.math.min
 
+/**
+5 1 3 5 10 7 4 9 2 8
+  i
+        j
+
+sum = 19
+s = 15
+answer = Int.MAX_VALUE
+*/
 val ns = readLine()!!.trim().split(" ").map { it.toInt() }
 val n = ns[0]
 val s = ns[1]
@@ -16,8 +25,10 @@ fun main() {
             j++
             if (j >= n) break
             sum += arr[j]
-        } else {
-            answer = min(answer, (j - i + 1))
+        }
+
+        if (sum >= s) {
+            answer = min(answer,(j - i + 1))
             sum -= arr[i]
             i++
         }
