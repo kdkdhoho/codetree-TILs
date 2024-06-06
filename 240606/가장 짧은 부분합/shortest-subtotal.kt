@@ -1,14 +1,5 @@
 import kotlin.math.min
 
-/**
-5 1 3 5 10 7 4 9 2 8
-  i
-        j
-
-sum = 19
-s = 15
-answer = Int.MAX_VALUE
-*/
 val ns = readLine()!!.trim().split(" ").map { it.toInt() }
 val n = ns[0]
 val s = ns[1]
@@ -34,5 +25,9 @@ fun main() {
         }
     }
 
-    print(answer)
+    if (answer == Int.MAX_VALUE) {
+        print(-1)
+    } else {
+        print(answer)
+    }
 }
